@@ -1,0 +1,134 @@
+---
+title: "Formal approaches to survivial child 'experienced' by mothers"
+author: "DA-IW"
+date: "August 2019"
+output: rmarkdown::html_vignette
+bibliography: bib.bibtex
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>"
+)
+```
+
+## Abstract
+
+In kinship theory, the survival (or deaths) descendents has a several impact in life reproductive of mothers. The formal demographic tools developed before allows to characterize the mortality from the mother perspective, comparing populations in different demographic stages. For that, some additional expressions are proposed, and also an approach to how mortality changes can affect the survival child experience. 
+
+## Relationship
+
+Consider a stable female population with fertility rates $m_{x}$ and force of mortality $\mu_{x}$, where the expected number of surviving children to a woman aged \textit{a}, 
+
+\begin{equation}
+\label{eq:CS}
+CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}
+\end{equation}
+
+This was developed in @goodman1974, in the "counting method" approach, being the net reproduction rate $R_0$, or the ratio between generations (multiplying and dividing by the mother generation $B$). 
+
+can be affected by a change in of $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk  (@goodman1974). Following Wrycza & Baudisch (@wrycza2012), this change can be generalized as a function of $\delta$, being an absolute change  $m_{x,\delta}=m_{x}+\delta$ and a relative one $m_{x,\delta}=m_{x}(1+\delta)$. In the first case, a discrete approximate effect is:
+
+\begin{equation}
+\label{eq:abs_change}
+\frac{\Delta CS_{a}}{CS_{a}} \approx -(a - \overline{x}_{(CS)}) \Delta\delta.
+\end{equation}
+
+Being proportional and inverse to the difference between maternal age \textit{a} and the mean age at birth for those living daughters $\overline{x}_{(CS)}$. In other words, the magnitude of the change depends negatively of how young is the successful reproductive pattern by age, as newborns will have larger risk periods.
+
+In the second case, the ralationship is not so clear because of the interaction of birth and mortality rates, but some things can be said (@KeyfitzMath):
+
+\begin{equation}
+\label{eq:relat_change}
+\frac{\Delta CS_{a}}{CS_{a}} \approx -H_{CS_a} \Delta\delta.
+\end{equation}
+
+Where $H_{CS_a}$ can be interpreted as a temporary entropy constant until age $a-\alpha$ but weighted by the fertility pattern between. In this sense, depending the way in that the survival childs are accumulated by age $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is the way that is taken each age contribution to the disparity measure $H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}$.
+The effect in the child survival experienced by the mother will be bigger the mortality is the same in all ages, no matter when are concentrated the newborns.
+
+
+**here comes a nice graph to explain this**
+
+Some additional measures are proposed to measure the survival experience by a mother aged $a$. One is an absolute measure of the *Mean Time Spent with Lost*, which can be expressed in terms of a temporary expected lost years measure $e^\dagger$: 
+
+\begin{equation}
+\label{eq:MTSL}
+MTSL_a = \int_\alpha^a{m_x\int_0^{a-x}{d_t e_{t,a-x}dt}dx} = \int_\alpha^a{m_x e_{o,a-x}^\dagger dx}.
+\end{equation}
+
+But maybe a mother would relate this lost years with the expected ones, feeling the *intensity* of her losts (*Intensity Time Lost*), and make possible the comparison between fertility regimes:
+
+\begin{equation}
+\label{eq:ITL}
+  ITL_a = \frac{\int_\alpha^a{m_x e_{o,a-x}^\dagger dx}}{\int_\alpha^a{m_x e_{o,a-x} dx}}
+\end{equation}
+
+Finally, different populations could have different mean age at lost of mothers for those death childs:
+
+\begin{equation}
+\label{eq:MAL}
+\begin{split}  
+  MAL_a = \frac{\int_\alpha^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{\int_0^{a-x}{d_tdt}}}}}{\int_\alpha^a{m_x}} \\
+  
+  MAL_a = \frac{\int_\alpha^a{m_x x}}{TFR_a} + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
+  
+  MAL_a = K + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
+  
+  MAL_a = K + \int_\alpha^a{f_{x,a} MAD_{a-x}}
+\end{split}
+\end{equation}
+
+$K$ is the mean age at birth, $MAD_{a-x}$ refers to the mean age at death for those newborns who dies before $a-x$, $TFR_a$ is the cumulated fertility for a women aged a, and $f_{x,a}$ is the cumulative distribution of fertility until age $a$. 
+
+## Proofs
+
+Here we show the proofs for the effects of changing mortality:
+
+### Absolute change
+
+Considering that $m_{x,\delta}=m_{x}+\delta$, $l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})}$, and:
+
+\begin{equation}
+CS_{(a)}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx.  
+\end{equation}
+
+To find the effects on daughter survival of adding $\delta$ to the age-specific death rates of daughters, we get the derivative of $dCS_{(a)}^\delta / d\delta$, evaluated near zero (Keyfitz \& Caswell, 2005, section 4.3):
+
+\begin{equation}
+\label{eq2}
+= -a\int_{\alpha}^{a}m_{x} l_{a-x} dx + \int_{\alpha}^{a}m_{x} l_{a-x}x dx.
+\end{equation}
+
+Since $CS_{a} = \int_{\alpha}^{a}m_{x} l_{a-x} dx$, we can rewrite equation (\ref{eq2}) as
+
+\begin{equation}
+\frac{dCS^\delta}{d\delta} = -a CS_{a}  + \int_{\alpha}^{a} x m_{x} l_{a-x} dx.
+\end{equation}
+
+Dividing both sides by $CS_{a}$ and multiplying by $d\delta$, we get
+
+\begin{equation}
+\label{mort_cont}
+\frac{d CS_{a}}{CS_{a}} = -(a - \overline{x}_{(CS)}) d\delta
+\end{equation}
+
+where $\overline{x}_{(CS)}$ is the mean age of women at the birth of their surviving daughters in a stationary population. 
+
+
+### Relative change
+
+\begin{equation}
+\label{mort_change_relative}
+\frac{d CS_{(a)}}{CS_{(a)}} = \frac{ \int_{\alpha}^{a}m_{(x)} l_{(a-x)} \log(l_{(a-x)}) dx}{\int_{\alpha}^{a}m_{(x)} l_{(a-x)}} d\delta
+\end{equation}
+
+
+## History
+
+Lotka (@lotka1931orphanhood) started to model the orphanhood in a theorical population, comparing the effect in different regimes.  The expected number of living daughters as a stable population concept was mentioned in Keyfitz & Pullum (@goodman1974), extending this idea to the rest of the kinship, in various genealogical directions. The formal effect of different kind of changes in mortality by age was well described in @wrycza2012.
+
+## Applications
+
+The proposed indexes will be applied to two very different regimes.
+The changes of mortality will be done compationallyto evaluate which component is more important in 
+
+## Bibliography
