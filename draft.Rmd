@@ -17,16 +17,16 @@ In kinship theory, the survival (or deaths) descendents has a several impact in 
 
 ## Relationship
 
-Consider a stable female population with fertility rates $m_{x}$ and force of mortality $\mu_{x}$, where the expected number of surviving children to a woman aged \textit{a}, 
+Consider a stable female population with fertility rates $m_{x}$ and force of mortality $\mu_{x}$, where the expected number of surviving children to a woman aged $a$, 
 
 \begin{equation}
 \label{eq:CS}
 CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}
 \end{equation}
 
-This was developed in @goodman1974, in the "counting method" approach, being the net reproduction rate $R_0$, or the ratio between generations (multiplying and dividing by the mother generation $B$). 
+This was developed in @goodman1974, in the "counting method" approach, being the net reproduction rate $R_0$ limited to $a$, or the (not complete) ratio between generations (multiplying and dividing by the mother generation $B$). 
 
-can be affected by a change in of $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk  (@goodman1974). Following Wrycza & Baudisch (@wrycza2012), this change can be generalized as a function of $\delta$, being an absolute change  $m_{x,\delta}=m_{x}+\delta$ and a relative one $m_{x,\delta}=m_{x}(1+\delta)$. In the first case, a discrete approximate effect is:
+This can be affected by a change of $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk  (@goodman1974). Following @wrycza2012, this change can be generalized as a function of $\delta$, being an absolute change  $m_{x,\delta}=m_{x}+\delta$ and a relative one $m_{x,\delta}=m_{x}(1+\delta)$. In the first case, a discrete approximate effect is:
 
 \begin{equation}
 \label{eq:abs_change}
@@ -43,10 +43,13 @@ In the second case, the ralationship is not so clear because of the interaction 
 \end{equation}
 
 Where $H_{CS_a}$ can be interpreted as a temporary entropy constant until age $a-\alpha$ but weighted by the fertility pattern between. In this sense, depending the way in that the survival childs are accumulated by age $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is the way that is taken each age contribution to the disparity measure $H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}$.
-The effect in the child survival experienced by the mother will be bigger the mortality is the same in all ages, no matter when are concentrated the newborns.
+The effect in the child survival experienced by the mother will be bigger when the mortality is the same in all ages, no matter where are concentrated the newborns.
 
 
-**here comes a nice graph to explain this**
+```{r, echo=F}
+"graph"
+```
+
 
 Some additional measures are proposed to measure the survival experience by a mother aged $a$. One is an absolute measure of the *Mean Time Spent with Lost*, which can be expressed in terms of a temporary expected lost years measure $e^\dagger$: 
 
@@ -62,26 +65,17 @@ But maybe a mother would relate this lost years with the expected ones, feeling 
   ITL_a = \frac{\int_\alpha^a{m_x e_{o,a-x}^\dagger dx}}{\int_\alpha^a{m_x e_{o,a-x} dx}}
 \end{equation}
 
-Finally, different populations could have different mean age at lost of mothers for those death childs:
+Finally, different populations could have different mean age at lost of mothers with death childs:
 
 \begin{equation}
 \label{eq:MAL}
-\begin{split}  
-  MAL_a = \frac{\int_\alpha^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{\int_0^{a-x}{d_tdt}}}}}{\int_\alpha^a{m_x}} \\
-  
-  MAL_a = \frac{\int_\alpha^a{m_x x}}{TFR_a} + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  
-  MAL_a = K + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  
-  MAL_a = K + \int_\alpha^a{f_{x,a} MAD_{a-x}}
-\end{split}
+  MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
 \end{equation}
 
-$K$ is the mean age at birth, $MAD_{a-x}$ refers to the mean age at death for those newborns who dies before $a-x$, $TFR_a$ is the cumulated fertility for a women aged a, and $f_{x,a}$ is the cumulative distribution of fertility until age $a$. 
+$K_a$ is the mean age at birth for womens aged $a$, $MAD_{a-x}$ refers to the mean age at death for those newborns who dies before $a-x$, $TFR_a$ is the cumulated fertility for a women aged a, and $f_{x,a}$ is the cumulative distribution of fertility until age $a$. 
 
 ## Proofs
 
-Here we show the proofs for the effects of changing mortality:
 
 ### Absolute change
 
@@ -116,19 +110,51 @@ where $\overline{x}_{(CS)}$ is the mean age of women at the birth of their survi
 
 ### Relative change
 
+Considering that $m_{x,\delta}=m_{x}(1+\delta)$, $l_{a-x,\delta} = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=l_{a-x}^{(1+\delta)}$, and:
+
+\begin{equation}
+CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx.  
+\end{equation}
+
+Using that the derivative of $dCS_{(a)}^\delta / d\delta = log(l_{a-x}) l_{a-x}^{(1+\delta)}$, evaluating $\delta$ near zero we get the final expression:
+
 \begin{equation}
 \label{mort_change_relative}
-\frac{d CS_{(a)}}{CS_{(a)}} = \frac{ \int_{\alpha}^{a}m_{(x)} l_{(a-x)} \log(l_{(a-x)}) dx}{\int_{\alpha}^{a}m_{(x)} l_{(a-x)}} d\delta
+\frac{d CS_{a}}{CS_{a}} = \frac{ \int_{\alpha}^{a}m_{x} l_{a-x} \log(l_{a-x}) dx}{\int_{\alpha}^{a}m_{x} l_{a-x}} d\delta
+\end{equation}
+
+Using that $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is a weighting function and making an analogy with the classical entropy fucntion $H$ where the weights are just the survival function, we can define this inforamtion function $H_{CS_a}=\int_\alpha^a{C_{CS_a}H(x)}$, and get:
+
+\begin{equation}
+\label{eq:relat_change2}
+\frac{dCS_{a}}{CS_{a}} = -H_{CS_a} d\delta.
 \end{equation}
 
 
+### Mean Age at Lost
+
+Start with the integral of the age $x+t$ at each death child weighted by fertility and survival function
+
+\begin{equation}
+\label{eq:MALproof}
+\begin{split}  
+  MAL_a = \frac{\int_\alpha^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{\int_0^{a-x}{d_tdt}}}}}{\int_\alpha^a{m_x}} \\
+  
+  MAL_a = \frac{\int_\alpha^a{m_x x}}{TFR_a} + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
+  
+  MAL_a = K_a + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
+  
+  MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
+\end{split}
+\end{equation}
+
 ## History
 
-Lotka (@lotka1931orphanhood) started to model the orphanhood in a theorical population, comparing the effect in different regimes.  The expected number of living daughters as a stable population concept was mentioned in Keyfitz & Pullum (@goodman1974), extending this idea to the rest of the kinship, in various genealogical directions. The formal effect of different kind of changes in mortality by age was well described in @wrycza2012.
+@lotka1931orphanhood started to model the orphanhood in a theorical population, comparing the effect in different regimes.  The expected number of living daughters as a stable population concept was mentioned in @goodman1974, extending this idea to the rest of the kinship, in various genealogical directions. The formal effect of different kind of changes in mortality by age was well described in @wrycza2012.
 
 ## Applications
 
 The proposed indexes will be applied to two very different regimes.
-The changes of mortality will be done compationallyto evaluate which component is more important in 
+The changes of mortality will be done computaionally to evaluate which component is more important in the raltive case
 
 ## Bibliography

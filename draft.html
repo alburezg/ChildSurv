@@ -10,9 +10,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<meta name="author" content="DB-IW" />
+<meta name="author" content="DA-IW" />
 
-<meta name="date" content="2019-08-04" />
 
 <title>Formal approaches to survivial child experienced by mothers</title>
 
@@ -34,8 +33,8 @@
 
 
 <h1 class="title toc-ignore">Formal approaches to survivial child ‘experienced’ by mothers</h1>
-<h4 class="author">DB-IW</h4>
-<h4 class="date">2019-08-04</h4>
+<h4 class="author">DA-IW</h4>
+<h4 class="date">August 2019</h4>
 
 
 
@@ -45,13 +44,13 @@
 </div>
 <div id="relationship" class="section level2">
 <h2>Relationship</h2>
-<p>Consider a stable female population with fertility rates <span class="math inline">\(m_{x}\)</span> and force of mortality <span class="math inline">\(\mu_{x}\)</span>, where the expected number of surviving children to a woman aged ,</p>
+<p>Consider a stable female population with fertility rates <span class="math inline">\(m_{x}\)</span> and force of mortality <span class="math inline">\(\mu_{x}\)</span>, where the expected number of surviving children to a woman aged <span class="math inline">\(a\)</span>,</p>
 <span class="math display">\[\begin{equation}
 \label{eq:CS}
 CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}
 \end{equation}\]</span>
-<p>This was developed in <span class="citation">Goodman, Keyfitz, and Pullum (1974)</span>, in the “counting method” approach, being the net reproduction rate <span class="math inline">\(R_0\)</span>, or the ratio between generations (multiplying and dividing by the mother generation <span class="math inline">\(B\)</span>).</p>
-<p>can be affected by a change in of <span class="math inline">\(\delta\)</span> in mortality in the range <span class="math inline">\([0,a-\alpha]\)</span>, where <span class="math inline">\(\alpha\)</span> is the start age of fertility risk (<span class="citation">Goodman, Keyfitz, and Pullum (1974)</span>). Following Wrycza &amp; Baudisch (<span class="citation">Wrycza and Baudisch (2012)</span>), this change can be generalized as a function of <span class="math inline">\(\delta\)</span>, being an absolute change <span class="math inline">\(m_{x,\delta}=m_{x}+\delta\)</span> and a relative one <span class="math inline">\(m_{x,\delta}=m_{x}(1+\delta)\)</span>. In the first case, a discrete approximate effect is:</p>
+<p>This was developed in <span class="citation">Goodman, Keyfitz, and Pullum (1974)</span>, in the “counting method” approach, being the net reproduction rate <span class="math inline">\(R_0\)</span> limited to <span class="math inline">\(a\)</span>, or the (not complete) ratio between generations (multiplying and dividing by the mother generation <span class="math inline">\(B\)</span>).</p>
+<p>This can be affected by a change of <span class="math inline">\(\delta\)</span> in mortality in the range <span class="math inline">\([0,a-\alpha]\)</span>, where <span class="math inline">\(\alpha\)</span> is the start age of fertility risk (<span class="citation">Goodman, Keyfitz, and Pullum (1974)</span>). Following <span class="citation">Wrycza and Baudisch (2012)</span>, this change can be generalized as a function of <span class="math inline">\(\delta\)</span>, being an absolute change <span class="math inline">\(m_{x,\delta}=m_{x}+\delta\)</span> and a relative one <span class="math inline">\(m_{x,\delta}=m_{x}(1+\delta)\)</span>. In the first case, a discrete approximate effect is:</p>
 <span class="math display">\[\begin{equation}
 \label{eq:abs_change}
 \frac{\Delta CS_{a}}{CS_{a}} \approx -(a - \overline{x}_{(CS)}) \Delta\delta.
@@ -62,8 +61,8 @@ CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}
 \label{eq:relat_change}
 \frac{\Delta CS_{a}}{CS_{a}} \approx -H_{CS_a} \Delta\delta.
 \end{equation}\]</span>
-<p>Where <span class="math inline">\(H_{CS_a}\)</span> can be interpreted as a temporary entropy constant until age <span class="math inline">\(a-\alpha\)</span> but weighted by the fertility pattern between. In this sense, depending the way in that the survival childs are accumulated by age <span class="math inline">\(C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}\)</span> is the way that is taken each age contribution to the disparity measure <span class="math inline">\(H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}\)</span>. The effect in the child survival experienced by the mother will be bigger the mortality is the same in all ages, no matter when are concentrated the newborns.</p>
-<p><strong>here comes a nice graph to explain this</strong></p>
+<p>Where <span class="math inline">\(H_{CS_a}\)</span> can be interpreted as a temporary entropy constant until age <span class="math inline">\(a-\alpha\)</span> but weighted by the fertility pattern between. In this sense, depending the way in that the survival childs are accumulated by age <span class="math inline">\(C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}\)</span> is the way that is taken each age contribution to the disparity measure <span class="math inline">\(H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}\)</span>. The effect in the child survival experienced by the mother will be bigger when the mortality is the same in all ages, no matter where are concentrated the newborns.</p>
+<pre><code>#&gt; [1] &quot;graph&quot;</code></pre>
 <p>Some additional measures are proposed to measure the survival experience by a mother aged <span class="math inline">\(a\)</span>. One is an absolute measure of the <em>Mean Time Spent with Lost</em>, which can be expressed in terms of a temporary expected lost years measure <span class="math inline">\(e^\dagger\)</span>:</p>
 <span class="math display">\[\begin{equation}
 \label{eq:MTSL}
@@ -74,24 +73,15 @@ MTSL_a = \int_\alpha^a{m_x\int_0^{a-x}{d_t e_{t,a-x}dt}dx} = \int_\alpha^a{m_x e
 \label{eq:ITL}
   ITL_a = \frac{\int_\alpha^a{m_x e_{o,a-x}^\dagger dx}}{\int_\alpha^a{m_x e_{o,a-x} dx}}
 \end{equation}\]</span>
-<p>Finally, different populations could have different mean age at lost of mothers for those death childs:</p>
+<p>Finally, different populations could have different mean age at lost of mothers with death childs:</p>
 <span class="math display">\[\begin{equation}
 \label{eq:MAL}
-\begin{split}  
-  MAL_a = \frac{\int_\alpha^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{\int_0^{a-x}{d_tdt}}}}}{\int_\alpha^a{m_x}} \\
-  
-  MAL_a = \frac{\int_\alpha^a{m_x x}}{TFR_a} + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  
-  MAL_a = K + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  
-  MAL_a = K + \int_\alpha^a{f_{x,a} MAD_{a-x}}
-\end{split}
+  MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
 \end{equation}\]</span>
-<p><span class="math inline">\(K\)</span> is the mean age at birth, <span class="math inline">\(MAD_{a-x}\)</span> refers to the mean age at death for those newborns who dies before <span class="math inline">\(a-x\)</span>, <span class="math inline">\(TFR_a\)</span> is the cumulated fertility for a women aged a, and <span class="math inline">\(f_{x,a}\)</span> is the cumulative distribution of fertility until age <span class="math inline">\(a\)</span>.</p>
+<p><span class="math inline">\(K_a\)</span> is the mean age at birth for womens aged <span class="math inline">\(a\)</span>, <span class="math inline">\(MAD_{a-x}\)</span> refers to the mean age at death for those newborns who dies before <span class="math inline">\(a-x\)</span>, <span class="math inline">\(TFR_a\)</span> is the cumulated fertility for a women aged a, and <span class="math inline">\(f_{x,a}\)</span> is the cumulative distribution of fertility until age <span class="math inline">\(a\)</span>.</p>
 </div>
 <div id="proofs" class="section level2">
 <h2>Proofs</h2>
-<p>Here we show the proofs for the effects of changing mortality:</p>
 <div id="absolute-change" class="section level3">
 <h3>Absolute change</h3>
 <p>Considering that <span class="math inline">\(m_{x,\delta}=m_{x}+\delta\)</span>, <span class="math inline">\(l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})}\)</span>, and:</p>
@@ -116,19 +106,45 @@ CS_{(a)}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx.
 </div>
 <div id="relative-change" class="section level3">
 <h3>Relative change</h3>
+<p>Considering that <span class="math inline">\(m_{x,\delta}=m_{x}(1+\delta)\)</span>, <span class="math inline">\(l_{a-x,\delta} = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=l_{a-x}^{(1+\delta)}\)</span>, and:</p>
+<span class="math display">\[\begin{equation}
+CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx.  
+\end{equation}\]</span>
+<p>Using that the derivative of <span class="math inline">\(dCS_{(a)}^\delta / d\delta = log(l_{a-x}) l_{a-x}^{(1+\delta)}\)</span>, evaluating <span class="math inline">\(\delta\)</span> near zero we get the final expression:</p>
 <span class="math display">\[\begin{equation}
 \label{mort_change_relative}
-\frac{d CS_{(a)}}{CS_{(a)}} = \frac{ \int_{\alpha}^{a}m_{(x)} l_{(a-x)} \log(l_{(a-x)}) dx}{\int_{\alpha}^{a}m_{(x)} l_{(a-x)}} d\delta
+\frac{d CS_{a}}{CS_{a}} = \frac{ \int_{\alpha}^{a}m_{x} l_{a-x} \log(l_{a-x}) dx}{\int_{\alpha}^{a}m_{x} l_{a-x}} d\delta
+\end{equation}\]</span>
+<p>Using that <span class="math inline">\(C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}\)</span> is a weighting function and making an analogy with the classical entropy fucntion <span class="math inline">\(H\)</span> where the weights are just the survival function, we can define this inforamtion function <span class="math inline">\(H_{CS_a}=\int_\alpha^a{C_{CS_a}H(x)}\)</span>, and get:</p>
+<span class="math display">\[\begin{equation}
+\label{eq:relat_change2}
+\frac{dCS_{a}}{CS_{a}} = -H_{CS_a} d\delta.
+\end{equation}\]</span>
+</div>
+<div id="mean-age-at-lost" class="section level3">
+<h3>Mean Age at Lost</h3>
+<p>Start with the integral of the age <span class="math inline">\(x+t\)</span> at each death child weighted by fertility and survival function</p>
+<span class="math display">\[\begin{equation}
+\label{eq:MALproof}
+\begin{split}  
+  MAL_a = \frac{\int_\alpha^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{\int_0^{a-x}{d_tdt}}}}}{\int_\alpha^a{m_x}} \\
+  
+  MAL_a = \frac{\int_\alpha^a{m_x x}}{TFR_a} + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
+  
+  MAL_a = K_a + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
+  
+  MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
+\end{split}
 \end{equation}\]</span>
 </div>
 </div>
 <div id="history" class="section level2">
 <h2>History</h2>
-<p>Lotka (<span class="citation">Lotka (1931)</span>) started to model the orphanhood in a theorical population, comparing the effect in different regimes. The expected number of living daughters as a stable population concept was mentioned in Keyfitz &amp; Pullum (<span class="citation">Goodman, Keyfitz, and Pullum (1974)</span>), extending this idea to the rest of the kinship, in various genealogical directions. The formal effect of different kind of changes in mortality by age was well described in <span class="citation">Wrycza and Baudisch (2012)</span>.</p>
+<p><span class="citation">Lotka (1931)</span> started to model the orphanhood in a theorical population, comparing the effect in different regimes. The expected number of living daughters as a stable population concept was mentioned in <span class="citation">Goodman, Keyfitz, and Pullum (1974)</span>, extending this idea to the rest of the kinship, in various genealogical directions. The formal effect of different kind of changes in mortality by age was well described in <span class="citation">Wrycza and Baudisch (2012)</span>.</p>
 </div>
 <div id="applications" class="section level2">
 <h2>Applications</h2>
-<p>The proposed indexes will be applied to two very different regimes. The changes of mortality will be done compationallyto evaluate which component is more important in</p>
+<p>The proposed indexes will be applied to two very different regimes. The changes of mortality will be done computaionally to evaluate which component is more important in the raltive case</p>
 </div>
 <div id="bibliography" class="section level2 unnumbered">
 <h2>Bibliography</h2>
