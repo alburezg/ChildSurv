@@ -1,7 +1,7 @@
 ---
-title: "A formal approach to child survival from the perspective of mothers"
+title: "Changes in mortality and child survival for mothers"
 author: "Ivan Williams and Diego Alburez-Gutierrez"
-date: "August 2019"
+date: "07 August 2019"
 output: pdf_document
 bibliography: bib.bibtex
 ---
@@ -14,7 +14,7 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 
 ### Background
 
-The expected number of descendants for mothers that reach a certain age is an important relation in kinship theory. Child survival (and child death) affect mothers in a variety of ways, yet it is not clear how changes in mortality affect the number of surviving children for mothers. 
+The expected number of descendants for mothers is an important relation in kinship theory. Child survival (and child death) affect mothers in a variety of ways, yet it is not clear how changes in mortality schedules affect the number of surviving children from the standpoint of mothers. 
 
 ### Objective
 
@@ -22,11 +22,11 @@ Existing formal demographic tools are used within a stable population framework 
 
 ### Results
 
-The expected change in child survival given an absolute change in mortality depends on the difference between maternal age and the age structure of her surviving children. The effects of absolute changes in mortality are explained using a fertility-weighted measure of entropy.
+The expected change in child survival given an absolute change in mortality depends on the difference between the age of a mother and the age structure of her surviving children. The effects of absolute changes in mortality are explained using a fertility-weighted measure of entropy.
 
 ### Contribution
 
-The paper proposes new expresions to characterize the effects of changes in mortality on child survival. The different meassures it proposes can be applied to populations at different stages of the demographic transition. 
+The paper proposes new expresions to characterize the effects of changes in mortality on child survival. The different meassures it introduces can be applied to populations at different stages of the demographic transition. 
 
 ## 1. Relationship
 
@@ -37,9 +37,9 @@ $CS_a$ is the expected number of surviving children to a woman aged $a$ in a sta
 CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}.
 \end{equation}
 
-We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk (@goodman1974) and $\delta$ can be absolute or relative (@wrycza2012). 
+We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk, as proposed by @goodman1974, and $\delta$ can be absolute or relative. 
 
-A discrete approximate of the effect on $CS_a$ of an absolute change in mortality $m_{x,\delta}=m_{x}+\delta$ is:
+A discrete approximate of the effect on $CS_a$ given an absolute change in mortality $m_{x,\delta}=m_{x}+\delta$ is:
 
 \begin{equation}
 \label{eq:abs_change}
@@ -61,8 +61,8 @@ The relationship is less clear for proportional changes in mortality $m_{x,\delt
 
 <!-- Aqui no cambie nada porque no entiendo muy bien lo que hiciste. Talvez hablamos para discutir? -->
 
-Where $H_{CS_a}$ can be interpreted as a temporary entropy constant until age $a-\alpha$ but weighted by the fertility pattern between. In this sense, depending the way in that the survival childs are accumulated by age $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is the way that is taken each age contribution to the disparity measure $H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}$.
-The effect in the child survival experienced by the mother will be bigger when the mortality is the same in all ages, no matter where are concentrated the newborns.
+Where $H_{CS_a}$ can be interpreted as a temporary entropy constant until age $a-\alpha$ but weighted by the fertility pattern between [falta algo aqui?]. In this sense, depending the way in that the survival childs are accumulated by age $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is the way that is taken each age contribution to the disparity measure $H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}$.
+The effect in the child survival experienced by the mother will be bigger when the mortality is the same in all ages, no matter where the newborns are concentrated.
 
 
 ```{r, echo=F}
@@ -105,7 +105,7 @@ where $\overline{x}_{(CS)}$ is the mean age of women at the birth of their survi
 
 ### 2.2. Relative change
 
-Considering that $m_{x,\delta}=m_{x}(1+\delta)$, $l_{a-x,\delta} = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=l_{a-x}^{(1+\delta)}$, and:
+Considering that $m_{x,\delta}=m_{x}(1+\delta)$ and $l_{a-x,\delta} = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=l_{a-x}^{(1+\delta)}$:
 
 \begin{equation}
 CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx.  
@@ -122,7 +122,7 @@ Using the derivative of $dCS_{(a)}^\delta / d\delta = log(l_{a-x}) l_{a-x}^{(1+\
 
 <!-- Podrias dar alguna referencia para lo de entropia?  -->
 
-Using that $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is a weighting function and making an analogy with the classical entropy fucntion $H$ where the weights are just the survival function, we can define this inforamtion function $H_{CS_a}=\int_\alpha^a{C_{CS_a}H(x)}$, and get:
+Using that $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is a weighting function and making an analogy with the classical entropy function $H$ where the weights are just the survival function, we can define this information function $H_{CS_a}=\int_\alpha^a{C_{CS_a}H(x)}$, and get:
 
 \begin{equation}
 \label{eq:relat_change2}
@@ -131,20 +131,22 @@ Using that $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ is a weighting function and
 
 ## 3. History
 
-Kinship theory has a long pedigree in mathematical demography. @lotka1931orphanhood started to model the orphanhood in a theorical population, comparing the effect in different demographic regimes. Equation  \ref{eq:CS} was originally proposed by @brass_derivation_1953 to estimate child mortality. The notion of estimating the expected number of living daughters in a stable population was extended by @goodman1974 to other kin relations (granddaughters, cousins, etc.). The "counting method" approach, being the net reproduction rate $R_0$ limited to $a$, or the (not complete) ratio between generations (multiplying and dividing by the mother generation $B$), was further popularized in @KeyfitzMath. @bongaarts_projection_1987 used a similar approach to estimate descendants in his 'Family Status Model'. More recently, @wrycza2012 has looked at the formal effect of different kind of changes in mortality by age in a paper published in this series. 
+Kin count estimation has a long pedigree in mathematical demography. @lotka1931orphanhood proposed to model the orphanhood in a theorical population, comparing the effect across demographic regimes. Equation  \ref{eq:CS} was originally proposed by @brass_derivation_1953 to estimate child mortality. The notion of estimating the expected number of living daughters in a stable population was generalized by @goodman1974 for other kin relations (granddaughters, cousins, etc.). The "counting method" approach, being the net reproduction rate $R_0$ limited to $a$, or the (not complete) ratio between generations (multiplying and dividing by the mother generation $B$), was further popularized by @KeyfitzMath. @bongaarts_projection_1987 used a similar approach to estimate descendants in his 'Family Status Model'. More recently, @wrycza2012 has looked at the formal effect of different kind of changes in mortality by age in a paper published in this series. 
 
 ## 4. Related meassures
 
 ### 4.1. Time with children lost
 
-Some additional measures are proposed to measure the survival experience by a mother aged $a$. One is an absolute measure of the *Mean Time Spent with Lost*, which can be expressed in terms of a temporary expected lost years measure $e^\dagger$: 
+<!-- Siento que esta parte necesita un poco mas de explicacion -->
+
+This section proposes two additional measures of child survival for a mother aged $a$. $MTSL$ is an absolute measure of the *Mean Time Spent with Lost*, which can be expressed in terms of a temporary expected lost years measure $e^\dagger$: 
 
 \begin{equation}
 \label{eq:MTSL}
 MTSL_a = \int_\alpha^a{m_x\int_0^{a-x}{d_t e_{t,a-x}dt}dx} = \int_\alpha^a{m_x e_{o,a-x}^\dagger dx}.
 \end{equation}
 
-But maybe a mother would relate these lost years with the expected ones, feeling the *intensity* of her losts (*Intensity Time Lost*), and make possible the comparison between fertility regimes:
+It is reasonable to expect a mother to relate these lost years with the expected ones, feeling the *intensity* of her losts (*Intensity Time Lost*). This makes it possible to compare between fertility regimes:
 
 \begin{equation}
 \label{eq:ITL}
@@ -153,7 +155,7 @@ But maybe a mother would relate these lost years with the expected ones, feeling
 
 ### 4.2. Mean Age at Child Loss
 
-Finally, different populations could have different mean age at lost of mothers with death childs:
+Different populations could have different mean age at lost of mothers with death child:
 
 \begin{equation}
 \label{eq:MAL}
@@ -162,7 +164,7 @@ Finally, different populations could have different mean age at lost of mothers 
 
 $K_a$ is the mean age at birth for womens aged $a$, $MAD_{a-x}$ refers to the mean age at death for those newborns who dies before $a-x$, $TFR_a$ is the cumulated fertility for a women aged a, and $f_{x,a}$ is the cumulative distribution of fertility until age $a$.
 
-Equation \ref{eq:MAL} can be derived by starting with the integral of the age $x+t$ at each death child weighted by fertility and survival function
+Equation \ref{eq:MAL} can be derived by starting with the integral of the age $x+t$ at each death child weighted by fertility and survival function:
 
 \begin{equation}
 \label{eq:MALproof}
