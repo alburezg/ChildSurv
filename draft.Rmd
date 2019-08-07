@@ -1,41 +1,58 @@
 ---
-title: "Formal approaches to survivial child 'experienced' by mothers"
+title: "A formal approach to child survival from the perspective of mothers"
 author: "DA-IW"
 date: "August 2019"
-output: rmarkdown::html_vignette
+output: pdf_document
 bibliography: bib.bibtex
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>"
-)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
 ```
 
 ## Abstract
 
-In kinship theory, the survival (or deaths) descendents has a several impact in life reproductive of mothers. The formal demographic tools developed before allows to characterize the mortality from the mother perspective, comparing populations in different demographic stages. For that, some additional expressions are proposed, and also an approach to how mortality changes can affect the survival child experience. 
+### Background
+
+An important relation in kinship theory is the expected descendants for mothers at certain age. Child survival and child death affects important dimensions of a mothers' life, such as their reproduction and quality of life. 
+
+### Objective
+
+Existing formal demographic tools are used within a stable population framework to characterize child mortality from the perspective of mothers considering both an absolute and a relative change in the force of mortality.
+
+### Results
+
+The expected change in child survival given an absolute change in mortality depends on the difference between maternal age and the age distribution o her surviving children. For absolute changes in mortality, it is necessary to consider a measure of entropy weighted by fertility. 
+
+### Contribution
+
+The paper proposes related expressions to describe how mortality changes affects child survival for mothers across demographic regimes. The paper also proposes alternative ways of conceptualizing child survival. 
 
 ## Relationship
 
-Consider a stable female population with fertility rates $m_{x}$ and force of mortality $\mu_{x}$, where the expected number of surviving children to a woman aged $a$, 
+$CS_a$ is the expected number of surviving children to a woman aged $a$ in a stable female population with fertility rates $m_{x}$ and force of mortality $\mu_{x}$:
 
 \begin{equation}
 \label{eq:CS}
 CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}
 \end{equation}
 
-This was developed in @goodman1974, in the "counting method" approach, being the net reproduction rate $R_0$ limited to $a$, or the (not complete) ratio between generations (multiplying and dividing by the mother generation $B$). 
+We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk (@goodman1974) and $\delta$ can be absolute or relative (@wrycza2012). 
 
-This can be affected by a change of $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk  (@goodman1974). Following @wrycza2012, this change can be generalized as a function of $\delta$, being an absolute change  $m_{x,\delta}=m_{x}+\delta$ and a relative one $m_{x,\delta}=m_{x}(1+\delta)$. In the first case, a discrete approximate effect is:
+A discrete approximate of the effect on $CS_a$ of an absolute change in mortality $m_{x,\delta}=m_{x}+\delta$ is:
 
 \begin{equation}
 \label{eq:abs_change}
 \frac{\Delta CS_{a}}{CS_{a}} \approx -(a - \overline{x}_{(CS)}) \Delta\delta.
 \end{equation}
 
-Being proportional and inverse to the difference between maternal age \textit{a} and the mean age at birth for those living daughters $\overline{x}_{(CS)}$. In other words, the magnitude of the change depends negatively of how young is the successful reproductive pattern by age, as newborns will have larger risk periods.
+In equation \ref{eq:abs_change}, the expected change in $CS_a$ is inversely proportional to the difference between maternal age \textit{a} and the mean age of the mother at the birth of her surviving daughters $\overline{x}_{(CS)}$. In other words, the magnitude of the change depends negatively on the age distribution of the surviving offspring (younger children experience longer periods of exposure to risk).
 
-In the second case, the ralationship is not so clear because of the interaction of birth and mortality rates, but some things can be said (@KeyfitzMath):
+<!-- No entiendo la oracion de abajo. Le reescribi en el parrafo de arriba, pero no se si esto es lo que querias decir? -->
+
+<!-- In other words, the magnitude of the change depends negatively on how young is the successful reproductive pattern by age, as newborns will have larger risk periods. -->
+
+The relationship is less clear for proportional changes in mortality $m_{x,\delta}=m_{x}(1+\delta)$ given the interaction of birth and mortality rates (@KeyfitzMath). Neverthless we can say that, in discrete terms:
 
 \begin{equation}
 \label{eq:relat_change}
@@ -139,16 +156,15 @@ Start with the integral of the age $x+t$ at each death child weighted by fertili
 \label{eq:MALproof}
 \begin{split}  
   MAL_a = \frac{\int_\alpha^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{\int_0^{a-x}{d_tdt}}}}}{\int_\alpha^a{m_x}} \\
-  
   MAL_a = \frac{\int_\alpha^a{m_x x}}{TFR_a} + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  
   MAL_a = K_a + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  
   MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
 \end{split}
 \end{equation}
 
 ## History
+
+Equation  \ref{eq:CS} was developed in @goodman1974, in the "counting method" approach, being the net reproduction rate $R_0$ limited to $a$, or the (not complete) ratio between generations (multiplying and dividing by the mother generation $B$). 
 
 @lotka1931orphanhood started to model the orphanhood in a theorical population, comparing the effect in different regimes.  The expected number of living daughters as a stable population concept was mentioned in @goodman1974, extending this idea to the rest of the kinship, in various genealogical directions. The formal effect of different kind of changes in mortality by age was well described in @wrycza2012.
 
