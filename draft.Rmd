@@ -1,8 +1,8 @@
 ---
-title: "Changes in mortality and child survival for mothers"
+title: "Child survival for mothers: mortality change and related measures"
 author: "Ivan Williams and Diego Alburez-Gutierrez"
 date: "07 August 2019"
-output: html_document
+output: pdf_document
 bibliography: bib.bibtex
 ---
 
@@ -29,8 +29,6 @@ The expected change in child survival given an absolute change in mortality depe
 The paper proposes new expresions to characterize the effects of changes in mortality on child survival. The different meassures it introduces can be applied to populations at different stages of the demographic transition. 
 
 
-
-
 ## 1. Relationship
 
 $CS_a$ is the expected number of surviving children to a woman aged $a$ in a stable female population with fertility rates $m_{x}$ and force of mortality $\mu_{x}$, as proposed by @goodman1974:
@@ -42,7 +40,7 @@ CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}.
 
 We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk.
 
-A discrete approximate of the effect on $CS_a$ given an absolute change in mortality $m_{x,\delta}=m_{x}+\delta$ is:
+A discrete approximate of the effect on $CS_a$ given an absolute change in mortality $m_{x,\delta}=m_{x}+\delta$ is (@wrycza2012):
 
 \begin{equation}
 \label{eq:abs_change}
@@ -63,10 +61,10 @@ The relationship is less clear for proportional changes in mortality $m_{x,\delt
 Where $H_{CS_a}$ can be interpreted as a temporary entropy constant until age $a-\alpha$ . 
 Depending the age structure of the survival daughters $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$,  is the way that is taken each age contribution to the disparity measure $H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}$ (@Aburto2019).  
 
-The effect of a relative change $\delta$ will be bigger when the mortality is more disperse in ages where the fertility is very concentrated. For example in \ref{fig:relative_change}, the youngest schedule would have a bigger change in $C_{CS_a}$...
+The effect of a relative change $\delta$ will be bigger when the mortality is more disperse in ages where the fertility is more concentrated. For example in \ref{fig:relative_change}, with a big hump in first adult ages, the youngest schedule would have a bigger change in than the older one in $C_{CS_a}$.
 
 
-```{r relative_change, echo=F, warning=F, fig.cap="Two different fertility schedules (black lines) and a big hump mortality case (right axis, line in red). In dashed grey lines are the mean age at birth"}
+```{r relative_change, echo=F, fig.align='center', warning=F, out.width = '70%', fig.cap="Two different fertility schedules (black lines) and a big hump mortality case (right axis, line in red). In dashed grey lines are the mean age at birth for each pattern."}
 
 # genero m_x (old and young pattern) y l_x (with big hump) 
 f_young = data.frame(x=c(15,20,25,30,35,40), f=c(0,.3,.3,.05,.01,.01))
@@ -102,7 +100,7 @@ H_old = -sum(f_old_p*rev(m_si_hump_sp(0:25))*log(rev(m_si_hump_sp(0:25))))/
 
 ### 2.1. Absolute change
 
-Considering that $m_{x,\delta}=m_{x}+\delta$ ((@wrycza2012)), and $l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})}$ :
+Considering that $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012), and $l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})}$ :
 
 \begin{equation}
 CS_{(a)}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx.  
@@ -166,11 +164,11 @@ Kin count estimation has a long pedigree in mathematical demography. @lotka1931o
 
 ## 4. Related meassures
 
+This section proposes two additional measures related to the child survival measure for a mother aged $a$. 
+
 ### 4.1. Time with children lost
 
-This section proposes three additional measures related to the child survival measure for a mother aged $a$. 
-
-*Mean Time Spent with Lost* ($MTSL$) is an absolute measure of the expected time with a death daughter that lives a mother, which can be expressed in terms of a temporary expected lost years measure $e^\dagger$: 
+*Mean Time Spent with Lost* ($MTSL$) is an absolute measure of the expected total time with a death daughter that lives a mother, which can be expressed in terms of a temporary expected lost years measure $e^\dagger$: 
 
 \begin{equation}
 \label{eq:MTSL}
@@ -179,7 +177,7 @@ MTSL_a = \int_\alpha^a{m_x\int_0^{a-x}{d_t e_{0,a-x-t} dt}dx} = \int_\alpha^a{m_
 
 Where $d_t$ is the death distribution from birth, and $e_{0,a-x-t}$ is the life expectancy at birth until age $a-x-t$.
 
-It is reasonable to think that mothers relates these lost years with the expected time with live daughters, getting the *intensity* of her losts (*Intensity Time Lost* ($ITL$)). This makes possible also to compare between fertility regimes:
+It is reasonable to think that mothers relates these lost years with the expected time with live daughters, getting the *intensity* of her losts (*Intensity Time Lost* ($ITL$)): ratio between expected time with "lost"" and expected time with "life". This makes possible also to compare between fertility regimes:
 
 \begin{equation}
 \label{eq:ITL}
@@ -188,26 +186,27 @@ It is reasonable to think that mothers relates these lost years with the expecte
 
 ### 4.2. Mean Age at Child Loss
 
-Different populations could have different mean age at lost ($MAL$) of mothers with death child:
+Different populations could have different mean age at lost ($MAL_a$) for mothers aged $a$ with at least a death child:
 
 \begin{equation}
 \label{eq:MAL}
   MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
 \end{equation}
 
-$K_a$ is the mean age at birth for womens aged $a$, $MAD_{a-x}$ refers to the mean age at death for those newborns who dies before $a-x$, $TFR_a$ is the cumulated fertility for a women aged a, and $f_{x,a}$ is the cumulative distribution of fertility until age $a$.
+$K_a$ is the mean age at birth for womens aged $a$, $MAD_{a-x}$ refers to the mean age at death for those newborns who dies before $a-x$, $TFR_a$ is the cumulated fertility for a women aged a, and $f_{x,a}$ is the cumulative age distribution of fertility until age $a$.
 
-Equation \ref{eq:MAL} can be derived by starting with the integral of the age $x+t$ at each death child weighted by fertility and survival function:
+Equation \ref{eq:MAL} can be derived by starting with the mother age $x+t$ at each death child age at death $t$, weighted by the fertility and survival function:
 
 \begin{equation}
 \label{eq:MALproof}
 \begin{split}  
   MAL_a = \frac{\int_\alpha^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{\int_0^{a-x}{d_tdt}}}}}{\int_\alpha^a{m_x}} \\
   MAL_a = \frac{\int_\alpha^a{m_x x}}{TFR_a} + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  MAL_a = K_a + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a} \\
-  MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
+  MAL_a = K_a + \frac{\int_\alpha^a{m_x MAD_{a-x}}}{TFR_a}
 \end{split}
 \end{equation}
+
+Arriving to the equation \ref{eq:MAL}.
 
 ## 5. Applications
 
