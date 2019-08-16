@@ -26,7 +26,7 @@ The expected change in child survival given an absolute change in mortality depe
 
 ### Contribution
 
-The paper proposes new expresions to characterize the effects of changes in mortality on child survival. The different meassures it introduces can be applied to populations at different stages of the demographic transition. 
+The paper proposes new expresions and measures to characterize the effects of changes in mortality on child survival. These can be applied to populations at different stages of the demographic transition. 
 
 
 ## 1. Relationship
@@ -38,16 +38,14 @@ $CS_a$ is the expected number of surviving children to a woman aged $a$ in a sta
 CS_a = \int_{\alpha}^a{m_{x}l_{a-x}dx}.
 \end{equation}
 
-We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk.
-
-A discrete approximate of the effect on $CS_a$ given an absolute change in mortality $m_{x,\delta}=m_{x}+\delta$ is (@wrycza2012):
+We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk. A discrete approximate of the effect on $CS_a$ given an absolute change in mortality $m_{x,\delta}=m_{x}+\delta$ is (@wrycza2012):
 
 \begin{equation}
 \label{eq:abs_change}
 \frac{\Delta CS_{a}}{CS_{a}} \approx -(a - \overline{x}_{(CS)}) \Delta\delta.
 \end{equation}
 
-In this equation, the expected change in child survival is inversely proportional to the difference between maternal age \textit{a} and the mean age of the mother at the birth of her surviving daughters $\overline{x}_{(CS)}$. In other words, the magnitude of the change depends negatively on the age distribution of the surviving offspring (as younger children experience longer periods of exposure to risk).
+In this equation, the expected change in child survival is inversely proportional to the difference between maternal age \textit{a} and the mean age of the mother at the birth of her surviving daughters $\overline{x}_{(CS)}$. The magnitude of the change depends negatively on the age distribution of the surviving offspring. This is intuitive considering that younger children experience longer periods of exposure to risk.
 
 The relationship is less clear for proportional changes in mortality $m_{x,\delta}=m_{x}(1+\delta)$ given the interaction of birth and mortality rates (@KeyfitzMath). Neverthless we can say that, in discrete terms:
 
@@ -58,13 +56,9 @@ The relationship is less clear for proportional changes in mortality $m_{x,\delt
 
 <!-- Aqui no cambie nada porque no entiendo muy bien lo que hiciste. Talvez hablamos para discutir? -->
 
-Where $H_{CS_a}$ can be interpreted as a temporary entropy constant until age $a-\alpha$ . 
-Depending the age structure of the survival daughters $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$,  is the way that is taken each age contribution to the disparity measure $H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}$ (@Aburto2019).  
+Where $H_{CS_a}$ can be interpreted as a temporary entropy constant until age $a-\alpha$. The age structure of the surviving daughters $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ determines the contribution of each age to the disparity measure $H_{CS_a}=\int_\alpha^a{C_{CS_a}(x)H(x)}$ (@Aburto2019). The effect of a relative change $\delta$ on $C_{CS_a}$ will be stronger in cases where the mortality is more disperse at ages where fertility is high. Consider the two fertility schedules depicted in Figure \ref{fig:relative_change}. Against the backdrop of a mortality hump in early adulthood (dashed line), we anticipate a more pronounced change in $C_{CS_a}$ for the younger fertility schedule.
 
-The effect of a relative change $\delta$ will be bigger when the mortality is more disperse in ages where the fertility is more concentrated. For example in \ref{fig:relative_change}, with a big hump in first adult ages, the youngest schedule would have a bigger change in than the older one in $C_{CS_a}$.
-
-
-```{r relative_change, echo=F, fig.align='center', warning=F, out.width = '70%', fig.cap="Two different fertility schedules (black lines) and a big hump mortality case (right axis, line in red). In dashed grey lines are the mean age at birth for each pattern."}
+```{r relative_change, echo=F, fig.align='center', warning=F, out.width = '70%', fig.cap="Two different fertility schedules (solid lines) and a big mortality hump (right axis, dashed line). The vertical lines show the mean age at birth for each schedule."}
 
 # genero m_x (old and young pattern) y l_x (with big hump) 
 f_young = data.frame(x=c(15,20,25,30,35,40), f=c(0,.3,.3,.05,.01,.01))
@@ -80,11 +74,11 @@ m_si_hump_sp = splinefun(m_si_hump, method = "monoH.FC")
 library(latex2exp)
 par(mfrow=c(1,1),mar = c(5,5,2,5))
 plot(15:40, f_young_p, t="l",xlab="x (mother age)", ylab= TeX(sprintf("$m_x$"))) 
-lines(15:40, f_old_p, lty=2) 
+lines(15:40, f_old_p, lty=1, col=2) 
 abline(v=f_young_mean, lty=2, col="grey")
 abline(v=f_old_mean, lty=2, col="grey")
 par(new = T)
-plot(0:25, rev(m_si_hump_sp(0:25)), axes=F, xlab=NA, ylab=NA, t="l", col=2)
+plot(0:25, rev(m_si_hump_sp(0:25)), axes=F, xlab=NA, ylab=NA, t="l", col=1, lty=2)
 axis(side = 4)
 mtext(side = 4, line = 3, TeX(sprintf("$l_{40-x}$")))
 
@@ -97,7 +91,6 @@ H_old = -sum(f_old_p*rev(m_si_hump_sp(0:25))*log(rev(m_si_hump_sp(0:25))))/
 
 ## 2. Proofs
 
-
 ### 2.1. Absolute change
 
 Considering that $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012), and $l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})}$ :
@@ -106,7 +99,7 @@ Considering that $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012), and $l_{a-x} = e^{-\
 CS_{(a)}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx.  
 \end{equation}
 
-To find the effects on daughter survival of adding $\delta$ to the age-specific death rates of daughters, we get the derivative of $dCS_{(a)}^\delta / d\delta$, evaluated near zero (@KeyfitzMath, section 4.3):
+We get the derivative of $dCS_{(a)}^\delta / d\delta$ evaluated near zero (@KeyfitzMath) to find the effects of adding $\delta$ to the age-specific death rates of daughters:
 
 \begin{equation}
 \label{eq2}
@@ -141,22 +134,15 @@ Using the derivative of $dCS_{(a)}^\delta / d\delta = log(l_{a-x}) l_{a-x}^{(1+\
 
 \begin{equation}
 \label{mort_change_relative}
-\frac{d CS_{a}}{CS_{a}} = \frac{ \int_{\alpha}^{a}m_{x} l_{a-x} \log(l_{a-x}) dx}{CS_{a}} d\delta
+\frac{d CS_{a}}{CS_{a}} = \frac{ \int_{\alpha}^{a}m_{x} l_{a-x} \log(l_{a-x}) dx}{CS_{a}} d\delta.
 \end{equation}
 
-<!-- I think this needs re-weriting for clarity but I didn't want to change it to avoid messing it up! -->
-
-<!-- Podrias dar alguna referencia para lo de entropia?  -->
-
-Calling $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$ the weighting function of the succesful fertility pattern (onset distribution of survival daughters), and making an analogy with the classical entropy function $H$ where the weights are just the survival function (@KeyfitzMath), we can define this information function $H_{CS_a}=\int_\alpha^a{C_{CS_a}H(x)}$, and get:
+We now define the information function $H_{CS_a}=\int_\alpha^a{C_{CS_a}H(x)}$ in analogy to the classic entropy function $H$ (@KeyfitzMath, @Aburto2019). Whereas the weights in the latter are given by the survival function, in Equation \ref{eq:relat_change2} they come from the onset distribution of surviving daughters $C_{CS_a}(x)=\frac{m_{x}l_{a-x}}{CS_{a}}$, so that:
 
 \begin{equation}
 \label{eq:relat_change2}
 \frac{dCS_{a}}{CS_{a}} = -H_{CS_a} d\delta.
 \end{equation}
-
-
-
 
 ## 3. History
 
@@ -177,7 +163,7 @@ MTSL_a = \int_\alpha^a{m_x\int_0^{a-x}{d_t e_{0,a-x-t} dt}dx} = \int_\alpha^a{m_
 
 Where $d_t$ is the death distribution from birth, and $e_{0,a-x-t}$ is the life expectancy at birth until age $a-x-t$.
 
-It is reasonable to think that mothers relates these lost years with the expected time with live daughters, getting the *intensity* of her losts (*Intensity Time Lost* ($ITL$)): ratio between expected time with "lost"" and expected time with "life". This makes possible also to compare between fertility regimes:
+It is useful to compare these lost years with the expected time that mother will live with their daughters. We call this the *intensity* of loss (*Intensity Time Lost* ($ITL$)): ratio between expected time with "lost"" and expected time with "life". This also makes possible to compare between fertility regimes:
 
 \begin{equation}
 \label{eq:ITL}
@@ -186,16 +172,14 @@ It is reasonable to think that mothers relates these lost years with the expecte
 
 ### 4.2. Mean Age at Child Loss
 
-Different populations could have different mean age at lost ($MAL_a$) for mothers aged $a$ with at least a death child:
+Different populations could have different mean age at child loss ($MAL_a$) for mothers aged $a$ with at least a death child:
 
 \begin{equation}
 \label{eq:MAL}
   MAL_a = K_a + \int_\alpha^a{f_{x,a} MAD_{a-x}}
 \end{equation}
 
-$K_a$ is the mean age at birth for womens aged $a$, $MAD_{a-x}$ refers to the mean age at death for those newborns who dies before $a-x$, $TFR_a$ is the cumulated fertility for a women aged a, and $f_{x,a}$ is the cumulative age distribution of fertility until age $a$.
-
-Equation \ref{eq:MAL} can be derived by starting with the mother age $x+t$ at each death child age at death $t$, weighted by the fertility and survival function:
+Equation \ref{eq:MAL} can be derived by starting with the mother age $x+t$ at each death child age at death $t$, weighted by the fertility and survival function. In it, $K_a$ is the mean age at childbirth for womens aged $a$, $MAD_{a-x}$ refers to the mean age at death for newborns that die before $a-x$, $TFR_a$ is the cumulated fertility for a women aged $a$, and $f_{x,a}$ is the cumulative age distribution of fertility up to age $a$:
 
 \begin{equation}
 \label{eq:MALproof}
@@ -206,7 +190,7 @@ Equation \ref{eq:MAL} can be derived by starting with the mother age $x+t$ at ea
 \end{split}
 \end{equation}
 
-Arriving to the equation \ref{eq:MAL}.
+<!-- Arriving to the equation \ref{eq:MAL}. -->
 
 ## 5. Applications
 
