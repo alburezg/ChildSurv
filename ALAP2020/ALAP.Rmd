@@ -9,19 +9,14 @@ bibliography: bib.bibtex
 ---
 
 ```{r setup, include = FALSE}
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>", message=F, warning=F)
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
+                      message=F, warning=F)
 library(tidyverse)
 library(gridExtra)
 library(quadprog)
-source("QOSplit.R")
-
-options(digits=2)
-
-# age survivor spline
-lx_fun <- function(data, age){
-  splinefun(data$x, data$lx, method = "monoH.FC")(age)
-}
 library(wpp2019)
+source("QOSplit.R")
+options(digits=2)
 ```
 
 
@@ -101,6 +96,12 @@ Dividing by $CS_a$ and multiplying by $\delta$ get the final expression. This is
 
 $$\frac{\Delta CS_{a}}{CS_a} = - \left[\int_{0}^{a}{\mu_t  \, \frac{CS_{a-t}}{CS_a} \,dt \,}\right] \Delta \delta$$
 ```{r main_funtion}
+# age survivor spline
+
+lx_fun <- function(data, age){
+  splinefun(data$x, data$lx, method = "monoH.FC")(age)
+}
+
 # function to calculate all the measures
 
 CS_results <- function(country, period, a){
@@ -180,7 +181,7 @@ asfr_paises_LA <- percentASFR %>% gather(Period, asfr, -name, -country_code, -ag
   filter(country_code %in% paises_LA_seleccion)
 
 # lt must downloaded manually
-lt_paises_LA <- readxl::read_xlsx("Data/WPP2019_MORT_F17_3_ABRIDGED_LIFE_TABLE_FEMALE.xlsx", sheet = 1, range = "A17:T77381") %>% rename(country_code=5,
+lt_paises_LA <- readxl::read_xlsx("WPP2019_MORT_F17_3_ABRIDGED_LIFE_TABLE_FEMALE.xlsx", sheet = 1, range = "A17:T77381") %>% rename(country_code=5,
                                       x = "Age (x)", 
                                       mx = "Central death rate m(x,n)",
                                       qx = "Probability of dying q(x,n)",
@@ -314,8 +315,6 @@ ggplot(CS_outs %>% filter(Age==50))+
 
 ## Discussion
 
-
-
 # pendings
 
 Here an independet assumption is done in the relationship between fertility and descendants survival within population. Both assumptions will be considered at the end.
@@ -361,13 +360,5 @@ Is known that fertility is influenced by child mortality, and that there is an h
 #   sum(f_old_p*rev(m_si_hump_sp(0:25)))
 
 ```
-
-* The proposed meassures are applied to two different demographic regimes.
-
-[PENDING]
-
-* A computation approach is used to evaluate the relative contribution of each component given a relative change in $\delta$.
-
-[PENDING]
 
 ## 5. Bibliography
