@@ -1,0 +1,33 @@
+---
+title: "Sobrevivencia de descendientes: aspectos formales y medidas para Latinoamérica"
+author:  |
+  Iván Williams [^iw] y Diego Alburez-Gutierrez [^da]
+
+    [^iw]: Universidad Nacional de Luján - Max Planck Institute for Demographic Research
+    [^da]: Max Planck Institute for Demographic Research
+institute: "IX Congreso de la Asociación Latinoamericana de Población - Valparaíso"
+date: "Marzo 2020"
+output: pdf_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE, comment = "#>")
+```
+
+## Resumen
+
+### Antecedentes y Objetivo
+
+El número de hijos sobrevivientes que una madre espera tener a distintas edades es una relación importante en la teoría demográfica del parentezco. Si bien esto afecta a las madres de varias maneras, no está claro cómo los cambios en los patrones de mortalidad, dado un esquema de fecundidad dado, afectan el número de niños sobrevivientes desde el punto de vista de las madres. Los objetivos de este trabajo son dos:
+
+- Encontrar expresiones formales para los cambios absolutos y relativos en la mortalidad, y su impacto en la sobrevivencia de hijos.
+
+- Analizar la evolución de este fenómeno en Latinoamérica durante la segunda parte del SXX.
+
+### Materiales y Métodos
+
+Se utilizarán herramientas demográficas formales para caracterizar la sobrevivencia de descendientes desde el punto de vista de una madre, considerando cambios tanto absolutos como relativos en las tasas de mortalidad. Se estimarán numpericamente el impacto compararando poblaciones latinoamericanas en distintos estadíos demográficos a partir de tablas de mortalidad disponibles en LAMBdA^[https://www.ssc.wisc.edu/cdha/latinmortality/].
+
+### Primeros resultados
+
+El cambio esperado en la sobrevivencia de hijos dado un cambio absoluto en la mortalidad depende de la diferencia entre la edad de una madre y la estructura por edad de sus hijos sobrevivientes. El efecto de un cambio relativo será mayor cuando la mortalidad sea dispersa en edades donde la fecundiad sea concentrada. Tambien se ofrecen expresiones para computar el tiempo medio y relativo que transitan las mujeres con hijos difuntos (en función de $e^\dagger$) y la edad media a la pérdida (en función de la edad media a la fecundidad y la paridad).
