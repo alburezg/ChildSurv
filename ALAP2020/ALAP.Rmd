@@ -63,14 +63,13 @@ $$MAL_a = \frac{\int_0^a{m_x {\int_0^{a-x}\frac{d_t (x+t) dt}{{d_{0,a-x}}}}}}{\i
 
 This is the sum
 
-We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk. A discrete approximate of the effect on $CS_a$ given an absolute change in mortality, considering that $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012), and $l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})}$:
+We now consider the consequences of a change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk. A discrete approximate of the effect on $CS_a$ given an absolute change in mortality, considering that $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012), and $l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})dt}$:
 
 $$CS_{(a)}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx$$
 
 We get the derivative of $dCS_{(a)}^\delta / d\delta$ evaluated near zero (@KeyfitzMath) to find the effects of adding $\delta$ to the age-specific death rates of daughters:
 
 $$= -a\int_{\alpha}^{a}m_{x} l_{a-x} dx + \int_{\alpha}^{a}m_{x} l_{a-x}x dx$$
-
 
 Since $CS_{a} = \int_{\alpha}^{a}m_{x} l_{a-x} dx$, we can rewrite equation (\ref{eq2}) as
 
@@ -81,6 +80,24 @@ Dividing both sides by $CS_{a}$ in an discrete approzimation we get
 $$\frac{\Delta CS_{a}}{CS_{a}} \approx -(a - \kappa_{CS}) \Delta\delta$$
 
 In this equation, the expected change in child survival is inversely proportional to the difference between maternal age $a$ and the mean age of the mother at the birth of her surviving daughters $\kappa_{CS}$ (always smaller than $\kappa$). The magnitude of the change depends negatively on the age distribution of the surviving offspring. This is intuitive considering that younger children experience longer periods of exposure to risk.
+
+If the change is only in the age range $\left[0;1\right)$, infant mortality, we can start by splitting the integral^[$a>1$]:
+
+$$CS_{a}^{\delta_0} = \int_{0}^{a-1}
+m_{x} {e{^{-\int_{1}^{a-x}\mu_t \,dt-\int_{0}^{1}(\mu_t + \delta)\,dt}}} dx + 
+\int_{a-1}^{a} m_{x} e^{-\int_{0}^{a-x}(\mu_t+ \delta)\,dt}\\
+=\int_{0}^{a-1} m_{x} l_{a-x}e^{-\delta} dx + \int_{a-1}^{a} m_{x} l_{a-x} e^{-\delta(a-x)}\,dx
+$$
+
+Deriving by $\delta$ and valuating near 0, we get:
+
+$$CS_{a}^{\delta_0} =-\int_{0}^{a-1} m_{x} l_{a-x} dx - a \int_{a-1}^{a} {m_{x} l_{a-x} dx} + \int_{a-1}^{a} {x \, m_{x} l_{a-x} dx}$$
+Expressing $\int_{0}^{a-1} m_{x} l_{a-x} dx$ as $CS_a - CS_{a-1,a}$, and finally dividing by $CS_a$: 
+
+$$ = - CS_a + CS_{a-1,a} (1-a+\kappa_{a-1,a})\\
+\frac{\Delta CS_{a}}{CS_{a}} \approx - \left[1-\frac{CS_{a-1,a}}{CS_a} (1-(a-\kappa_{a-1,a}))\right] \Delta\delta$$
+
+Affects proportionally for the range extension of 1, less $P_b$ (if we assume uniform distribution of deaths and births in the first year) times $\frac{CS_{a-1,a}}{CS_a}$ the portion of cumulated alive daughters in the previous year, weighting how important was the last year of reproduction.
 
 The relationship is less clear for proportional changes in mortality given the interaction of birth and mortality rates (@KeyfitzMath). Considering that $m_{x,\delta}=m_{x}(1+\delta)$ and $l_{a-x,\delta} = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=l_{a-x}^{(1+\delta)}$:
 
@@ -95,6 +112,15 @@ $$\frac{d CS_{a}}{d \delta} = \int_{\alpha}^{a} {m_{x} l_{a-x} \log(l_{a-x}) dx}
 Dividing by $CS_a$ and multiplying by $\delta$ get the final expression. This is the negative of cumulative hazard to age *a* times a factor $0\leq \frac{CS_{a-t}}{CS_a}\leq1$ (strictly incremental becasuse $m_x\geq0$ and $l_x\geq0$), that will give more weight to mortality in first ages.
 
 $$\frac{\Delta CS_{a}}{CS_a} = - \left[\int_{0}^{a}{\mu_t  \, \frac{CS_{a-t}}{CS_a} \,dt \,}\right] \Delta \delta$$
+
+
+
+In a model with heterogeneity, determined at born with a multiplicative effect, $CS_a$ could be interpreted as a conditional expectation with random variables *Y* for fertility heterogeneity and *Z* for frailty.
+
+$$CS_a = \int_{0}^{\infty}f_y \int_{0}^{\infty}f_{z|y}\left[\int_{0}^{\infty}y\,\overline{m}_x\,e^{-\overline{H}_{a-x}\,z}\,dx\right]\,dz\,dy\\
+CS_a = \int_{0}^{\infty}f_y \, y \int_{0}^{\infty}f_{z|y}\left[\int_{0}^{\infty}\,\overline{m}_x\,e^{-\overline{H}_{a-x}\,z}\,dx\right]\,dz\,dy
+$$
+
 ```{r main_funtion}
 # age survivor spline
 

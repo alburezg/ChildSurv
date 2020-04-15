@@ -411,7 +411,7 @@ summary {
   MAL_a = \frac{\int_0^a{m_x x}}{F_a} + \frac{\int_0^a{m_x MAD_{a-x}}}{F_a} \\
   MAL_a = \kappa + \frac{\int_0^a{m_x MAD_{a-x}}}{F_a}\]</span></p>
 <p>This is the sum</p>
-<p>We now consider the consequences of a change <span class="math inline">\(\delta\)</span> in mortality in the range <span class="math inline">\([0,a-\alpha]\)</span>, where <span class="math inline">\(\alpha\)</span> is the start age of fertility risk. A discrete approximate of the effect on <span class="math inline">\(CS_a\)</span> given an absolute change in mortality, considering that <span class="math inline">\(m_{x,\delta}=m_{x}+\delta\)</span> (<span class="citation">Wrycza and Baudisch (2012)</span>), and <span class="math inline">\(l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})}\)</span>:</p>
+<p>We now consider the consequences of a change <span class="math inline">\(\delta\)</span> in mortality in the range <span class="math inline">\([0,a-\alpha]\)</span>, where <span class="math inline">\(\alpha\)</span> is the start age of fertility risk. A discrete approximate of the effect on <span class="math inline">\(CS_a\)</span> given an absolute change in mortality, considering that <span class="math inline">\(m_{x,\delta}=m_{x}+\delta\)</span> (<span class="citation">Wrycza and Baudisch (2012)</span>), and <span class="math inline">\(l_{a-x} = e^{-\int_{0}^{a-x}{(\mu_t+\delta})dt}\)</span>:</p>
 <p><span class="math display">\[CS_{(a)}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx\]</span></p>
 <p>We get the derivative of <span class="math inline">\(dCS_{(a)}^\delta / d\delta\)</span> evaluated near zero (<span class="citation">Keyfitz and Caswell (2005)</span>) to find the effects of adding <span class="math inline">\(\delta\)</span> to the age-specific death rates of daughters:</p>
 <p><span class="math display">\[= -a\int_{\alpha}^{a}m_{x} l_{a-x} dx + \int_{\alpha}^{a}m_{x} l_{a-x}x dx\]</span></p>
@@ -420,6 +420,17 @@ summary {
 <p>Dividing both sides by <span class="math inline">\(CS_{a}\)</span> in an discrete approzimation we get</p>
 <p><span class="math display">\[\frac{\Delta CS_{a}}{CS_{a}} \approx -(a - \kappa_{CS}) \Delta\delta\]</span></p>
 <p>In this equation, the expected change in child survival is inversely proportional to the difference between maternal age <span class="math inline">\(a\)</span> and the mean age of the mother at the birth of her surviving daughters <span class="math inline">\(\kappa_{CS}\)</span> (always smaller than <span class="math inline">\(\kappa\)</span>). The magnitude of the change depends negatively on the age distribution of the surviving offspring. This is intuitive considering that younger children experience longer periods of exposure to risk.</p>
+<p>If the change is only in the age range <span class="math inline">\(\left[0;1\right)\)</span>, infant mortality, we can start by splitting the integral<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>:</p>
+<p><span class="math display">\[CS_{a}^{\delta_0} = \int_{0}^{a-1}
+m_{x} {e{^{-\int_{1}^{a-x}\mu_t \,dt-\int_{0}^{1}(\mu_t + \delta)\,dt}}} dx + 
+\int_{a-1}^{a} m_{x} e^{-\int_{0}^{a-x}(\mu_t+ \delta)\,dt}\\
+=\int_{0}^{a-1} m_{x} l_{a-x}e^{-\delta} dx + \int_{a-1}^{a} m_{x} l_{a-x} e^{-\delta(a-x)}\,dx
+\]</span></p>
+<p>Deriving by <span class="math inline">\(\delta\)</span> and valuating near 0, we get:</p>
+<p><span class="math display">\[CS_{a}^{\delta_0} =-\int_{0}^{a-1} m_{x} l_{a-x} dx - a \int_{a-1}^{a} {m_{x} l_{a-x} dx} + \int_{a-1}^{a} {x \, m_{x} l_{a-x} dx}\]</span> Expressing <span class="math inline">\(\int_{0}^{a-1} m_{x} l_{a-x} dx\)</span> as <span class="math inline">\(CS_a - CS_{a-1,a}\)</span>, and finally dividing by <span class="math inline">\(CS_a\)</span>:</p>
+<p><span class="math display">\[ = - CS_a + CS_{a-1,a} (1-a+\kappa_{a-1,a})\\
+\frac{\Delta CS_{a}}{CS_{a}} \approx - \left[1-\frac{CS_{a-1,a}}{CS_a} (1-(a-\kappa_{a-1,a}))\right] \Delta\delta\]</span></p>
+<p>Affects proportionally for the range extension of 1, less <span class="math inline">\(\frac{1}{2}\)</span> (if we assume uniform distribution of deaths and births in the last year,) times <span class="math inline">\(\frac{CS_{a-1,a}}{CS_a}\)</span> the portion of cumulated alive daughters in the previous year.</p>
 <p>The relationship is less clear for proportional changes in mortality given the interaction of birth and mortality rates (<span class="citation">Keyfitz and Caswell (2005)</span>). Considering that <span class="math inline">\(m_{x,\delta}=m_{x}(1+\delta)\)</span> and <span class="math inline">\(l_{a-x,\delta} = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=l_{a-x}^{(1+\delta)}\)</span>:</p>
 <p><span class="math display">\[CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx\]</span></p>
 <p>Using the derivative of <span class="math inline">\(dCS_{(a)}^\delta / d\delta = log(l_{a-x}) l_{a-x}^{(1+\delta)}\)</span>, reversing between <span class="math inline">\(t\)</span> and <span class="math inline">\(x\)</span>:</p>
@@ -428,6 +439,10 @@ summary {
 = - \int_{0}^{a}{\mu_t} \int_{0}^{a-t} {m_{x} l_{a-t-x} \, dx}\, dt\]</span></p>
 <p>Dividing by <span class="math inline">\(CS_a\)</span> and multiplying by <span class="math inline">\(\delta\)</span> get the final expression. This is the negative of cumulative hazard to age <em>a</em> times a factor <span class="math inline">\(0\leq \frac{CS_{a-t}}{CS_a}\leq1\)</span> (strictly incremental becasuse <span class="math inline">\(m_x\geq0\)</span> and <span class="math inline">\(l_x\geq0\)</span>), that will give more weight to mortality in first ages.</p>
 <p><span class="math display">\[\frac{\Delta CS_{a}}{CS_a} = - \left[\int_{0}^{a}{\mu_t  \, \frac{CS_{a-t}}{CS_a} \,dt \,}\right] \Delta \delta\]</span></p>
+<p>In a model with heterogeneity, determined at born with a multiplicative effect, <span class="math inline">\(CS_a\)</span> could be interpreted as a conditional expectation with random variables <em>Y</em> for fertility heterogeneity and <em>Z</em> for frailty.</p>
+<p><span class="math display">\[CS_a = \int_{0}^{\infty}f_y \int_{0}^{\infty}f_{z|y}\left[\int_{0}^{\infty}y\,\overline{m}_x\,e^{-\overline{H}_{a-x}\,z}\,dx\right]\,dz\,dy\\
+CS_a = \int_{0}^{\infty}f_y \, y \int_{0}^{\infty}f_{z|y}\left[\int_{0}^{\infty}\,\overline{m}_x\,e^{-\overline{H}_{a-x}\,z}\,dx\right]\,dz\,dy
+\]</span></p>
 <pre class="r"><code># age survivor spline
 
 lx_fun &lt;- function(data, age){
@@ -673,6 +688,12 @@ Intensity Tome Lost of womans aged 30, 40 and 50. Years 1950 (darker) to 2015 (l
 </div>
 </div>
 </div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><span class="math inline">\(a&gt;1\)</span><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
 </div>
 
 
