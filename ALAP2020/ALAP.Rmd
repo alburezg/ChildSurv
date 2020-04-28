@@ -22,13 +22,34 @@ source("funs.R")
 
 ## Introduction
 
-Kin count estimation has a long pedigree in mathematical demography. @lotka1931orphanhood proposed to model the orphanhood in a theorical population, comparing the effect across demographic regimes. Equation  \ref{eq:CS} was originally proposed by @brass_derivation_1953 to estimate child mortality. The notion of estimating the expected number of living daughters in a stable population was generalized by @goodman1974 for other kin relations (granddaughters, cousins, etc.). The "counting method" approach, being the net reproduction rate $R_0$ limited to $a$, or the (not complete) ratio between generations (multiplying and dividing by the mother generation $B$), was further popularized by @KeyfitzMath. @bongaarts_projection_1987 used a similar approach to estimate descendants in his 'Family Status Model'. More recently, @wrycza2012 has looked at the formal effect of different kind of changes in mortality by age.
+Kin count estimation has a long and distinguished pedigree in mathematical demography, starting with the work of @lotka1931orphanhood on modelling orphanhood in theorical populations across demographic regimes.
+To the best of our knowledge, @brass_derivation_1953 first proposed an equation akin to Eq. \ref{eq:CS} to estimate child survival over age. The notion of estimating the expected number of living daughters in a stable population was generalized by @goodman1974 for other kin relations (granddaughters, cousins, etc.). 
+<!-- We should clarify this sentence a bit: -->
+The "counting method" approach was further popularized in @KeyfitzMath, where the net reproduction rate $R_0$ was limited to $a$ or to the (not complete) ratio between generations (multiplying and dividing by the mother generation $B$). 
+@bongaarts_projection_1987 used a similar approach to estimate descendants in his 'Family Status Model' and, more recently, @wrycza2012 has used formal techniques to describe the effect of different kind of changes in mortality by age.
 
-<!---
-Improve Intro: ¿Why is important study survival descendants from mother perspective?¿How impacts mothers health/welfare/experience?
--->
 
-The objective of this work is to give a formal approach to deomgraphy of surviving childs from mother perspective, looking for relations to characterize this situation: the timing of descedent mortality (mean age at the event and time spent in that state) and the effect of mortality change in the final descendants quantity. Numerical applications of the expressions will be done for Latinoamerican countries during the second half of XX Century. Details on data handling and smooth procedures are exposed in [data section](#Data_appendix) in the Appendix.
+The question of child survival, particularly the survival of daughters for mothers, sits at the very center of demographic theory.
+This is evidenced by the omnipresensce of the 'net reproductive rate' in accounts of human and non-human populations. 
+Historical demographers draw liberally on assumptions about kin availability and individual's exposure to offspring mortality to explain fertility decisions, especially around the demographic transition. 
+These assumptions are often untested given the data sparcity [@livi_bacci_concise_1997;@volk_infant_2013]. 
+Economic theories of fertility that consider children as 'investment' for old-age support also rely on notions of child survival [@preston1978effects].
+
+
+
+Child survival - and it's counterpart, child death - gain new significance in the wake of the fertility transition.
+Depressed fertility means that fewer children are tasked with providing key emotional, social, and financial transfers to aging parents for ever increasing periods of time.
+With increasing periods of generational overlapp, individuals find themselves 'sandwiched' between aging parents and young children requiring their simultaneous attention and care [@daatland_norwegian_2010].
+In the context of global population aging, elderly parents without access to formal social security and pension systems are particularly reliant on these transfers to make ends meet [@smith-greenaway_maternal_2020].  
+Losing an only child may become a more common experience in the context of global fertility decline, something particularly worrying for parents suddendly rendered childless.
+Given the known psychological, health, and social consequences of child loss for bereaved parents and families [@Hendrickson2009;@lee_death_2014], it is surprising that the demographic processes that shape parental bereavement remain very poorly understood.
+
+
+
+How can we characterize the timing of offspring mortality as experienced by a mother using a formal demographic perspective? 
+How do changes in mortality affect the availability of offspring over age from the point of view of a prospective mother?
+In this paper, we uncover formal relationships to answer these questions and provide numerical applications using data from countries in Latin America during the second half of the twentieth century. Please see the [data section](#Data_appendix) in the Appendix for details on the data and analytical procedures.
+
 
 ## Formulas
 
