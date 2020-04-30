@@ -111,7 +111,7 @@ $$CS_a \approx l_{a-\kappa} \int_{\alpha}^a{m_{x}dx}+(l_{a-\kappa})^{'}\int_{0}^
 where the fertility pattern by age is concentrated around $\kappa$ and the accumulated fertility (or gross reproduction rate in our same-sex model) is $F_a =  \int_{\alpha}^a{m_{x}dx}$. 
 The second Taylor´s term is null because $\int_{\alpha}^a{x \, m_{x}dx} = \kappa \, F_a$. 
 
-We find that, seen from the perspective of a mother, child survival mainly depends on the cummulative fertility function^[This runs contrary to the findings of @KeyfitzMath, who found that levels of fertility did not affect the probability of having living ancestors.] and the mean age at childbearing $\kappa$ acts through the factor $l_{a-\kappa}$.
+We find that, seen from the perspective of a mother, child survival mainly depends on the cummulative fertility function^[Note that this runs contrary to the findings of @KeyfitzMath, who found that levels of fertility did not affect the probability of having living ancestors.] and the mean age at childbearing $\kappa$ acts through the factor $l_{a-\kappa}$.
 The dispersion of of fertility $\sigma^2$ is negatively proportional to child survival. 
 All else constant, a higher dispersion of fertility $\sigma^2$ is associated with a decrease in $CS_a$ during reproductive age.
 The negative relationship stems from the fact that the second derivative of $l_{a-\kappa}$ is negative in the 15-49 age range, given a concave downwards survival function. 
@@ -145,7 +145,7 @@ c <- LA %>% filter(name=="Guatemala", between(x, 15,50)) %>% ggplot() +
 grid.arrange(a, grid.arrange(b,c,ncol=1), ncol=2)
 ```
 
-### Burden and timing
+### Burden and timing of maternal bereavement
 
 We call *Mean Time Spent in Bereavement* (*MTSB*) the absolute measure of the expected total lifetime with a death daughter for a mother aged *a*, which can be expressed in terms of a temporary expected lost years index in line with $e^\dagger$ (@Vaupel1986):
 
@@ -167,13 +167,18 @@ $$MAL_a = \frac{\int_0^a{m_x {\frac{\int_0^{a-x} l_t \, \mu_t (x+t) dt}{\int_0^{
 For those Latin American mothers aged 50 with 3 daughters born who suffered a lost, they experienced that at age 30 in average (figure \@ref(fig:plot_ITL_MAL)) (More can be analyzed here).
 
 ```{r plot_ITL_MAL, fig.cap = "Intensity Tome Lost of  womans aged 30, 40 and 50. Years 1950 (darker) to 2015 (lighter). Latinamerican countries in period 1950-2015"}
-ITL <- ggplot(CS_outs)+  
-                    geom_smooth(method="lm", aes(x=Fa, y=ITL, color=factor(Age)), 
-                                se = F, formula= (y ~ exp(x)))+
-                    geom_point(aes(x=Fa, y=ITL, color=factor(Age)), alpha = .3) +
-                    theme_classic()+        
-                    theme(legend.position = "right") +
-                    labs(y = "%") 
+ITL <- 
+  ggplot(CS_outs) +
+  geom_smooth(
+    method="lm"
+    , aes(x=Fa, y=ITL, color=factor(Age))
+    , se = F
+    , formula= (y ~ exp(x))
+    ) +
+  geom_point(aes(x=Fa, y=ITL, color=factor(Age)), alpha = .3) +
+  theme_classic() +
+  theme(legend.position = "right") +
+  labs(y = "%") 
 
 MAL <- ggplot(CS_outs %>% filter(Age==50))+
                     geom_smooth(aes(x=Fa, y=MAL), method = "lm", col="grey", se = F)+
@@ -186,7 +191,9 @@ grid.arrange(ITL, MAL, ncol=2)
 
 ### Mortality changes
 
-We now consider the consequences of an absolute change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk. Considering that $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012), and $l_{a-x}^\delta = e^{-\int_{0}^{a-x}{(\mu_t+\delta})dt}$:
+We now consider the consequences of an absolute change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk. 
+As a [corollary](#Corollary) we consider the case where mortality only changes for infants, considering that it is unlikelily for a potential change in mortality to affect all ages equally in real populations.
+For now, let us consider $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012) and $l_{a-x}^\delta = e^{-\int_{0}^{a-x}{(\mu_t+\delta})dt}$:
 
 $$CS_{a}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx$$
 
@@ -201,47 +208,79 @@ $$\frac{\Delta CS_{a}}{CS_{a}} \approx -(a - k_a) \Delta\delta$$
 
 The expected change in descendants survival is inversely proportional to the difference between maternal age $a$ and the mean age of the mother at the birth of her surviving daughters $k_a$ (always smaller than $\kappa_a$). The magnitude of the change depends negatively on the age distribution of the surviving offspring. This is intuitive considering that younger descendants experiences longer periods of exposure to risk. The figure \@ref(fig:CS_abs_app) shows that goodness of fit is decreasing with the change size, given that $\delta$ is assumed near zero (as an example considering $\delta=0.01$ means at age 50 that $\frac{l_50}{e^{\delta\,50}} = \frac{l_50}{1.6}$, a big change).
 
-```{r CS_abs_app, fig.cap= "Absolute change and its approximation for age CS in women aged 50. Latinamerican countries in period 1950-2015"}
-# application of absolute changes
-age = 50
-CS_abs_change_app = data.frame(delta = NA,Country = NA, Period = NA, change = 0, change_app = 0)
-for(delta in seq(0,.01,.001)){
-  for (country in unique(LA$name)){
-    for (period in unique(LA$Period)){
-      # country = "Argentina"; period = "2010-2015"; delta = .01
-      change_app = -(age - CS_outs %>% filter(name == country, 
-                                              Period == period, 
-                                              Age == age) %>% select(k)) * delta
-      country_i = LA %>% filter(name == country, Period == period) 
-      CS = CS_outs %>% filter(name == country, 
-                              Period == period, 
-                              Age == age) %>% select(CS)
-      CS_changed = sum(unlist(sapply(1:age, function(i) 
-        country_i$asfr[i]*country_i$lx[age-(i-1)]/100000*exp(-delta*(age-(i-1))))), 
-        na.rm = T)
-      change = (CS_changed-CS)/CS
-      CS_abs_change_app = rbind(CS_abs_change_app, 
-                                data.frame(delta = delta,
-                                           Country = country, Period = period, 
-                                           change = as.numeric(change), 
-                                           change_app = as.numeric(change_app)))
-    }
-  } 
-}
-CS_abs_change_app %>% slice(-1) %>% 
+```{r CS_abs_app, fig.cap= "Effect of an absolute absolute change in mortality on child survival by maternal age of women in Latin America  for the 1950-2015 period. Goodness of fit of approximation compared to direct estimation"}
+
+# NEW CODE ----
+
+abs30 <- absolute_change_fit(30)
+abs40 <- absolute_change_fit(40)
+abs50 <- absolute_change_fit(50)
+abs70 <- absolute_change_fit(70)
+
+bind_rows(abs30, abs40, abs50, abs70) %>% 
+  mutate(age = paste("Maternal age", age)) %>% 
   ggplot() + 
   geom_point(aes(x=change, y=change_app, color=delta)) +
   geom_abline(slope=1, intercept = 0) +
-  theme_classic() +
-  # theme(legend.position = "none")+
-  xlim(-.3, 0) + ylim(-.3, 0)
+  scale_x_continuous("Actual change in CS", limits = c(-.3, 0)) +
+  scale_y_continuous("Approximated change in CS", limits = c(-.3, 0)) +
+  scale_color_continuous("Absolute change\nin delta") +
+  facet_wrap(~age) +
+  theme_classic() 
+
+
+# ORIGINAL CODE ----
+# application of absolute changes
+
+# age <- 50
+# 
+# CS_abs_change_app <- data.frame(delta = NA,Country = NA, Period = NA, change = 0, change_app = 0)
+# 
+# for(delta in seq(0,.01,.001)){
+# # for(delta in seq(0,.02,.005)){
+#   for (country in unique(LA$name)){
+#     for (period in unique(LA$Period)){
+#       # country = "Argentina"; period = "2010-2015"; delta = .01
+#       change_app = -(age - CS_outs %>% filter(name == country, 
+#                                               Period == period, 
+#                                               Age == age) %>% 
+#                        select(k)) * delta
+#       
+#       country_i = LA %>% filter(name == country, Period == period) 
+#       CS = CS_outs %>% filter(name == country, 
+#                               Period == period, 
+#                               Age == age) %>% select(CS)
+#       CS_changed = sum(unlist(sapply(1:age, function(i) 
+#         country_i$asfr[i]*country_i$lx[age-(i-1)]/100000*exp(-delta*(age-(i-1))))), 
+#         na.rm = T)
+#       change = (CS_changed-CS)/CS
+#       CS_abs_change_app = rbind(CS_abs_change_app, 
+#                                 data.frame(delta = delta,
+#                                            Country = country, Period = period, 
+#                                            change = as.numeric(change), 
+#                                            change_app = as.numeric(change_app)))
+#     }
+#   } 
+# }
+# 
+# CS_abs_change_app %>% 
+#   slice(-1) %>% 
+#   ggplot() + 
+#   geom_point(aes(x=change, y=change_app, color=delta)) +
+#   geom_abline(slope=1, intercept = 0) +
+#   scale_x_continuous("Actual change in CS", limits = c(-.3, 0)) +
+#   scale_y_continuous("Approximated change in CS", limits = c(-.3, 0)) +
+#   scale_color_continuous("Absolute change\nin delta") +
+#   theme_classic() 
+  
 ```
 
-That an equal change in mortality could happens at all ages is unlikelihood. As a [corollary](#Corollary) we inspect the case that only infant mortality is affected.
 
-The relationship is less clear for a proportional change given the interaction of birth and mortality rates (@KeyfitzMath). Considering that $\mu_{x,\delta}=\mu_{x}(1+\delta)$ and $l_{a-x}^\delta = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=(l_{a-x})^{(1+\delta)}$:
+We now consider the consequences of a proportional change in mortality on child survival.
+Given a proportional change in mortality $\mu_{x,\delta}=\mu_{x}(1+\delta)$ so that $l_{a-x}^\delta = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=(l_{a-x})^{(1+\delta)}$, it follows that:
 
-$$CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx$$
+
+$$CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx.$$
 
 Using the derivative $\frac{dl_{a-x}^{(1+\delta)}}{d\delta} = log(l_{a-x}) l_{a-x}^{(1+\delta)}$, and in the third row reversing integrals between $t$ and $x$:
 
@@ -253,7 +292,10 @@ Dividing by $CS_a$ and multiplying by $\delta$ get one useful expression. This i
 
 $$\frac{\Delta CS_{a}}{CS_a} = - \left[\int_{0}^{a}{\mu_t  \, \frac{CS_{a-t}}{CS_a} \,dt \,}\right] \Delta \delta$$
 
+Grasping this relationship intuitively is more difficult to  given the interaction of birth and mortality rates (@KeyfitzMath). 
 This factor has a S-shape because $l_x$ curvature fertility accumulation, that gives more weight to first ages, and which is grater than 1 only for ages *a* with complete reproductive life and high infant mortality (with no additional children and higher risk for one age additional of survive).  
+
+<!-- Do we get any inuition about how proportional changes affects CS? -->
 
 <!---
 An Application here
@@ -282,11 +324,11 @@ for (country in countries){
 
 ### Heterogeneity
 
-In a model with heterogeneity, determined at born with a multiplicative effect, $CS_a$ could be interpreted as a conditional expectation with random variables *K* for fertility heterogeneity and *Z* for mortality frailty.
+In a model with heterogeneity, determined at birth with a multiplicative effect, $CS_a$ could be interpreted as a conditional expectation with random variables *K* for fertility heterogeneity and *Z* for mortality frailty.
 
 $$CS_a(k,z) = \int_{0}^{\infty}\,{m(k)}_x\,{l(z)}_{a-x}\,dx$$
 
-Following @Coresh1988 we can express the fertility part in a multiplicative way with variability in the level but not in the shape, as ${m(k)}_x = F_\beta\,k\,r_x$, where $F_\beta$ is the baseline accumulated fertility, $K$ is a random variable with mean 1 that allows variability between groups and $r_x$ is the fertility structure by age ($\int_{0}^{\beta}{r_x}=1$). Frailty part can be thought in a cohort effect way, also in the multiplicative assumption as @Vaupel2014, with $l(z)_x=e^{-H_{x}Z}=l_x^Z$, with baseline hazard $\mu$. Replacing conveniently the last two expressions and considering the joint distribution $f_{kz}=f_{z/k} \,f_k$, the mean $\overline{CS}_a$ would be:
+Following @Coresh1988 we can express the fertility component in a multiplicative way with variability in the level but not in the shape, as ${m(k)}_x = F_\beta\,k\,r_x$, where $F_\beta$ is the baseline accumulated fertility, $K$ is a random variable with mean 1 that allows variability between groups and $r_x$ is the fertility structure by age ($\int_{0}^{\beta}{r_x}=1$). Frailty part can be thought in a cohort effect way, also in the multiplicative assumption as @Vaupel2014, with $l(z)_x=e^{-H_{x}Z}=l_x^Z$, with baseline hazard $\mu$. Replacing conveniently the last two expressions and considering the joint distribution $f_{kz}=f_{z/k} \,f_k$, the mean $\overline{CS}_a$ would be:
 
 
 $$\overline{CS}_a = \int_{0}^{\infty}\int_{0}^{\infty}\left[\int_{0}^{a}{ {m(k)}_x l(z)_{a-x}\,dx}\right]f_{kz}\,dz \,dk\\
@@ -309,6 +351,8 @@ lines(seq(0,0.4,0.01), predict(model,newdata = data.frame(q=seq(0,0.4,0.01))))
 ```
 
 ## Discussion
+
+
 
 ## Appendix
 

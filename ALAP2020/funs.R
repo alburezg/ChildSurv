@@ -128,13 +128,73 @@ LA <- lx_paises_LA_s %>% slice(-1) %>% mutate(country_code=as.integer(country_co
 LA$name[LA$name == "Bolivia (Plurinational State of)"] = "Bolivia"
 
 
-# get_results
+# get_results ---------------------
+
 CS_outs <- as.data.frame(expand.grid(name = unique(LA$name),
-                                     Age = c(30,40,50),
+                                     # Age = c(30,40,50),
+                                     Age = c(30,40,50, 70),
                                      Period = unique(LA$Period)))
 for(i in 1:nrow(CS_outs)){
-  CS_outs[i,4:12] = CS_results(country = CS_outs[i,1], 
-                               period = CS_outs[i,3], 
-                               a = CS_outs[i,2])}
+  CS_outs[i, 4:12] <- CS_results(
+    country = CS_outs[i,1],
+    period = CS_outs[i,3], 
+    a = CS_outs[i,2]
+    )
+  }
+
 CS_outs <- CS_outs %>% mutate(Year = as.integer(substr(Period, 1, 4)) + 2.5)
 
+# Other functions ----
+
+age <- 50
+
+absolute_change_fit <- function(age) {
+
+  CS_abs_change_app <- data.frame(delta = NA,Country = NA, Period = NA, change = 0, change_app = 0)
+  
+  for(delta in seq(0,.01,.001)){
+    # for(delta in seq(0,.02,.005)){
+    for (country in unique(LA$name)){
+      for (period in unique(LA$Period)){
+        # country = "Argentina"; period = "2010-2015"; delta = .01
+        change_app = -(age - CS_outs %>% filter(name == country, 
+                                                Period == period, 
+                                                Age == age) %>% 
+                         select(k)) * delta
+        
+        country_i = LA %>% filter(name == country, Period == period) 
+        CS = CS_outs %>% filter(name == country, 
+                                Period == period, 
+                                Age == age) %>% select(CS)
+        CS_changed = sum(unlist(sapply(1:age, function(i) 
+          country_i$asfr[i]*country_i$lx[age-(i-1)]/100000*exp(-delta*(age-(i-1))))), 
+          na.rm = T)
+        change = (CS_changed-CS)/CS
+        CS_abs_change_app = rbind(CS_abs_change_app, 
+                                  data.frame(delta = delta,
+                                             Country = country, Period = period, 
+                                             change = as.numeric(change), 
+                                             change_app = as.numeric(change_app)))
+      }
+    } 
+  }
+  
+  
+  
+  CS_abs_change_app %>% 
+    slice(-1) %>% 
+    mutate(age = age)
+}
+
+abs50 <- absolute_change_fit(50)
+abs70 <- absolute_change_fit(70)
+
+bind_rows(abs50, abs70) %>% 
+  ggplot() + 
+  geom_point(aes(x=change, y=change_app, color=delta)) +
+  geom_abline(slope=1, intercept = 0) +
+  scale_x_continuous("Actual change in CS", limits = c(-.3, 0)) +
+  scale_y_continuous("Approximated change in CS", limits = c(-.3, 0)) +
+  scale_color_continuous("Absolute change\nin delta") +
+  facet_grid(~age) +
+  theme_classic() 
