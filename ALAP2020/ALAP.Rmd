@@ -121,6 +121,9 @@ The negative relationship stems from the fact that the second derivative of $l_{
 
 <!-- No cambie esto porque no me queda tan claro cual es la conexion con el resto del texto - podemos discutir -->
 
+The second Taylor´s term is null because $\int_{\alpha}^a{x \, m_{x}dx} = \kappa \, F_a$. The formula tells us that the survival experience for a woman aged *a* depends mainly of cumulated fertility (possible cases, different from the ancestor count case where this doesn´t affect) and child survival probability (success cases), but also negative proportional affected by how disperse is the fertility by age (variance \sigma^2) and the suvival curvature around (negative sign), in a $l_x$ range where is tipycally very flat (range 20-40 years old) in transitioned populations. Guatemala improved the approximation with years due to rectangularization process in $l_x$ (figure \@ref(fig:plot_CS_aprox)). And change in $\kappa$, taking logs and deriving: $\frac{dCS_a}{d\kappa}\frac{1}{CS_a} \approx \mu_{a-\kappa}F_a \Delta\kappa$
+
+
 Guatemala improved the approximation with years due to rectangularization process in $l_x$ (figure \@ref(fig:plot_CS_aprox)).
 
 
@@ -149,6 +152,7 @@ grid.arrange(a, grid.arrange(b,c,ncol=1), ncol=2)
 ```
 
 ### Burden and timing of maternal bereavement
+
 
 We call *Mean Time Spent in Bereavement* (*MTSB*) the absolute measure of the expected total lifetime with a death daughter for a mother aged *a*, which can be expressed in terms of a temporary expected lost years index in line with $e^\dagger$ (@Vaupel1986):
 
@@ -331,7 +335,8 @@ In a model with heterogeneity, determined at birth with a multiplicative effect,
 
 $$CS_a(k,z) = \int_{0}^{\infty}\,{m(k)}_x\,{l(z)}_{a-x}\,dx$$
 
-Following @Coresh1988 we can express the fertility component in a multiplicative way with variability in the level but not in the shape, as ${m(k)}_x = F_\beta\,k\,r_x$, where $F_\beta$ is the baseline accumulated fertility, $K$ is a random variable with mean 1 that allows variability between groups and $r_x$ is the fertility structure by age ($\int_{0}^{\beta}{r_x}=1$). Frailty part can be thought in a cohort effect way, also in the multiplicative assumption as @Vaupel2014, with $l(z)_x=e^{-H_{x}Z}=l_x^Z$, with baseline hazard $\mu$. Replacing conveniently the last two expressions and considering the joint distribution $f_{kz}=f_{z/k} \,f_k$, the mean $\overline{CS}_a$ would be:
+
+Following @Coresh1988 we can express the fertility part in a multiplicative way with variability in the level but not in the shape, as ${m(k)}_x = F_\beta\,k\,r_x$, where $F_\beta$ is the baseline cumulated fertility, $K$ is a random variable with mean 1 that allows variability between groups and $r_x$ is the fertility structure by age ($\int_{0}^{\beta}{r_x}=1$). Frailty part can be thought in a cohort effect way, also in the multiplicative assumption as @Vaupel2014, with $l(z)_x=e^{-H_{x}Z}=l_x^Z$, with baseline hazard $\mu$. Replacing conveniently the last two expressions and considering the joint distribution $f_{kz}=f_{z/k} \,f_k$, the unconditional mean $\overline{CS}_a$ would be:
 
 
 $$\overline{CS}_a = \int_{0}^{\infty}\int_{0}^{\infty}\left[\int_{0}^{a}{ {m(k)}_x l(z)_{a-x}\,dx}\right]f_{kz}\,dz \,dk\\
@@ -339,6 +344,8 @@ $$\overline{CS}_a = \int_{0}^{\infty}\int_{0}^{\infty}\left[\int_{0}^{a}{ {m(k)}
 
 The way to chain dependence is convenient to the expected hierarchy $f_{zk}=f_{k|z}f_z$: groups with higher descendant´s mortality would adjust their fertility level, with positive correlation. Isolating one age and defining $f_{kz}$ we can explore effects in $CS_a$.
 
+given K and Z values are fertility and child survival are independent
+K is a partity level assgined to cohorts of women.
 
 <!---
 More development here
