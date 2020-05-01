@@ -44,12 +44,15 @@ In the context of global population aging, elderly parents without access to for
 Losing an only child may become a more common experience in the context of global fertility decline, something particularly worrying for parents suddenly rendered childless.
 Given the known psychological, health, and social consequences of child loss for bereaved parents and families [@Hendrickson2009;@lee_death_2014], it is surprising that the demographic processes that shape parental bereavement remain very poorly understood.
 
-
-
+How do changing mortality rates affect the availability of offspring over age for mothers, if fertility remains constant?
 How can we characterize the timing of offspring mortality as experienced by a mother from a formal demographic perspective? 
 <!-- How do changes in mortality affect the availability of offspring over age from the point of view of a prospective mother? -->
-How do changing mortality rates affect the availability of offspring over age for mothers, if fertility remains constant?
-In this paper, we uncover formal relationships to answer these questions and provide numerical applications using data from countries in Latin America during the second half of the twentieth century. Please see the [data section](#Data_appendix) in the Appendix for more details on the data and on the analytical procedures.
+In this paper, we uncover formal relationships to answer these questions and provide numerical applications using data from countries in Latin America during the second half of the twentieth century. See the [data section](#Data_appendix) in the Appendix for more details on the data and on the analytical procedures.
+
+Recent development have underscored the need to understand how sudden changes in mortality affect the availability of kin. 
+In the context of the global pandemic caused by the Covid-19 disease, elderly people depend on support provided by their relatives, especially during periods of lockdown and in the absence of governmental support mechanisms.
+Elderly parents may be at a higher risk of losing the key support provided by their adult children given the known age-gradient in the Covid-19 case fatality rate.
+Our approach is key for understanding the impact of age-specific excess mortality on the resilience or otherwise of kinship networks for the vulnerable elderly population.
 
 
 ## Formal development
@@ -62,7 +65,7 @@ $$CS_a = \int_{0}^a{m_{x}l_{a-x}dx}.$$
 
 We motivate this paper with an empirical example using fertility and mortality rates from the 2019 Revision of the UN World Population Prospects (UN WPP) for the Latin American Region. 
 The example makes the simplifying assumption that the UN WPP period rates remain in place during sufficient time for the populations to approach demographic stability.
-We hope that this inaccuracy will be forgiven for the sake of simplicity. 
+<!-- We hope that this inaccuracy will be forgiven for the sake of simplicity.  -->
 A more sophisticated model using the appropriate age-specific cohort rates in the subscripts has been proposed by @alburez_gutierrez_womens_2019.
 
 
