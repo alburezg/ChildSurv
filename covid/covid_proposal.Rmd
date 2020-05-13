@@ -1,7 +1,8 @@
 ---
-title: 'Research proposal: Mortality exposure in times of Covid-19'
+title: 'Estimating excess bereavement due to Covid-19'
+subtitle: 'A research proposal'
 author: "Diego Alburez-Gutierrez and Ivan Williams"
-date: "12 May 2019"
+date: "15 May 2019"
 output:
   pdf_document:
     fig_caption: yes
@@ -11,44 +12,41 @@ bibliography: bib.bibtex
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(collapse = TRUE,
                       message=F, warning=F, echo = F)
-
-# library(tidyverse)
-# library(gridExtra)
-# library(quadprog)
-# library(wpp2019)
-# options(digits=2)
-# source("funs.R")
 ```
 
 
 ## Introduction
 
-The subject of death has, once again, come to the forefront of public debate as the world grapples with a global pandemic of the Covid-19 disease. 
-Much attention has been given to estimating age-specific case fatality rates and mortality rates in general [ref].
-The degree to which the pandemic will increase the exposure to mortality in the population as a whole has recieved little or no attention in the demographic literature. 
-Studies in sociology and public health have consistently shown the negative and long-term consequences of bereavement on mental, physical, and emotional health, especially for women [ref].
-Yet, no study to date has considered the degree to which covid-19 excess mortality will increase expossure to death for people around the world.
+Death and bereavement has come to the forefront of public debate as the world grapples with the global pandemic of the Covid-19 disease, which has already brought about the death of thousands of mainly elderly people. 
+Each death represents the loss of somebody's parent, grandparent, great-grandparent, aunt, uncle, cousin, or child.
+Studies in sociology and public health have consistently shown the negative and long-term consequences of bereavement on mental, physical, and emotional health, especially for women [@umberson_death_2017].
+Bereavement also matters because relatives are crucial providers of social and financial support and their absence will be direly felt by bereaved relatives [@Hendrickson2009].
+For many people living in the Global North this will be their first close encouter with death, as historically low mortality rates have implied a reduction in the exposure to mortality at all ages in high-income countries [@murphy_long-term_2011; @alburez_gutierrez_womens_2019]. 
+For people in the Global South, it will add to an already high burden of bereavement [@smith-greenaway_maternal_2020; @roberton_early_2020].
 
 
-Given the age-gradient of the Covid-19 case fatality rates [ref], we expect that the pandemic will result in the death of thousands of elderly relatives, such as parents, grandparents, great-grandparents, aunts and uncles. 
-More worringly, it might result in the death of adult children for even older parents who depend on the crucial support given by their offspring or grandchildren.
-For many in the Global North this will be their first close encouter with death, as historically low mortality rates have implied a reduction in the exposure to mortality at all ages in high-income countries [@murphy_long-term_2011, @alburez_gutierrez_womens_2019].
+
+Much attention has been given to Covid-19 excess mortality rates, but little is known about how the pandemic will increase the expossure to death for people around the world.
+This project will combine existing and future data on Covid-19 excess mortality with powerful methods from formal demography [@goodman1974] to estimate the burden of Covid-19 bereavement.
+The project is not interested in the total number of people who will die from Covid-19, but in the number of people who will be affected by the death of a relative because of the disease.
+We are interested in `excess bereavement'.
+We ask: 
+
+   1. How many people will lose a relative to Covid-19, either in the nuclear or in the extended family? 
+   2. What is the age distribution of the bereaved population?
+   3. How will the experience of bereavement affect the availability of kin resources for those that survive the disease?
 
 
 ## Project description
 
-This study will combine existing and future data on Covid-19 excess mortality [ref] with powerful methods from formal demography [@goodman1974] to estimate the potential burden of covid-19 bereavement.
-As such, we are not interested in the total number of people who will die from Covid-19, but in the number of people who will be affected by the death of a relative because of the disease.
-In other words, this is a study on `excess bereavement'.
-Given the range of covid-19 mortality rates in different countries, we ask: (1) How many people will lose a relative to Covid-19, either in the nuclear or in the extended family? (2) What is the age distribution of the bereaved population?
+### Methodological component
 
+We seek to generalize the Kin-Cohort Method [@alburez_gutierrez_womens_2019], itself an extension of the Goodman, Keyfitz Pullum kinship equations [@goodman1974], to estimate the potential increase in the expossure to the death of relatives. 
+A first step will focus on deriving mathematical expressions to model the effect of changes in mortality on the population-level prevalence of bereavement.
 
-The project comprises a methodological and an empirical component.
-In terms of methodology, we seek to generalize the Kin-Cohort Method, which is itself an extension of the Goodman, Keyfitz Pullum kinship equations [@goodman1974], to estimate the potential increase in the expossure to the death of relatives. 
-this means deriving the mathematical expressions needed to model the effect of changes in mortality on the population-level prevalence of excess bereavement. 
 
 We exemplify this for the case of parental bereavement, which we understand as the probability of losing a child. 
-Let $CS_a$ be the expected number of surviving children to a mother alive at aged $a$ in a female stable population with fertility rates $m_{x}$, mortality hazard $\mu_{x}$ and survival function $l_x=e^{-\int_{0}^{x}{\mu_t}\,dt}$ (with unit radix $l_0=1$), as proposed by @goodman1974:
+Let $CS_a$ be the expected number of surviving children to a mother alive at age $a$ in a female stable population with fertility rates $m_{x}$, mortality hazard $\mu_{x}$ and survival function $l_x=e^{-\int_{0}^{x}{\mu_t}\,dt}$ (with unit radix $l_0=1$), as proposed by @goodman1974:
 
 $$CS_a = \int_{0}^a{m_{x}l_{a-x}dx}.$$
 
@@ -59,30 +57,39 @@ $$CS_{a}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx.$$
 
 As we have shown elsewhere [ref], we can conceptualize the effects of this absolute change $\delta$ in mortality as the difference between maternal age $a$ and the mean age of the mother at the birth of her surviving daughters $k_a$:
 
+<!-- Si sacamos nuestro paper como pre-print, lo podemos citar aqui!! -->
+
 $$\frac{\Delta CS_{a}}{CS_{a}} \approx -(a - k_a) \Delta\delta.$$
 
-This is a first step towards developing a formal understanding the consequences of an increase in age-specific mortality on child survival but further development is needed, especially for the case in which mortality does not increase by the same factor at all ages. 
-This is, of course, the case of Covid-19, which is known to affect people in older ages [ref]. 
-Further work is also needed to generalize these relationships to other types of kin, such as mothers, grandmothers, cousins and aunts.
-A final strand of methodological component of the project will seek to develop the introduce heterogeneity in the Kin-Cohort models. 
-In their current state, these models ignore the role of heterogeneity in the experience of kin death, a particular limitation when considering that deaths from the infectious disease are likely to be clustered in the population.
 
-The empirical componente of the project will apply the mathematical models to month-specific mortality and fertility rates (interpolated, if needed, from the available data taking the seasonsality of mortality and fertility into account) to estimate the excess burden of kin death derived from Covid-19.
-Combining this with data on the age and sex structure of the population will allow us to estimate excess bereavement, which we will compare to a baseline counter-factual scenario using rates that exclude the excess mortality from Covid-19.
-The study will produce a range of estimates, given the uncertainty inherent to the Covid-19 mortality statistics that are required as input for our mathematical models. 
+Deriving these formal relationships for other types of relative (mothers, grandmothers, siblings, cousins, and aunts) will provide key insight for the empirical analysis of excess bereavement. 
+Further development is needed to consider age-specific changes in mortality, as the Covid-19 disease affects mainly people in older ages.
+Finally, the existing models ignore heterogeneity in the experience of kin death and within-group correlations.
+This is a limitation considering that deaths from infectious disease are likely to be clustered in the population.
+The final strand of the methodological component of the project will adress these issues.
 
-As an initial step, the analysis will focus on Germany and Italy, for which quality data on covid-19 death rates [ref] is already available at the sub-national level and where more quality data is expected in the future [ref].
-Our methodology is country-agnostic, meaning that it can be applied to other settings once quality data on Covid-19 excess mortality is becomes available. 
+### Empirical component
+
+We will estimate the excess burden of kin death from the Covid-19 disease using our novel mathematical models with mortality and fertility rates as inputs.
+Combining this with data on the age and sex structure of the population will allow us to estimate the magnitude of the excess bereavement and the age distribution of the bereaved population\footnote{`Excess' bereavement can be compared to a baseline counter-factual scenario using rates that exclude the excess mortality from Covid-19.}.
+
+
+
+As an initial step, the analysis will focus on Germany and Italy, for which quality data on Covid-19 death rates is already available.
+Further development may apply our innovative methodology to other setting once data on Covid-19 excess mortality becomes available. 
+The project will produce a range of estimates, given the uncertainty inherent to the Covid-19 mortality statistics that are required as input. 
+However, we expect the accuracy of our models to improve as more data quality becomes available.
+
 
 
 ## Expected main results
 
-- A set of academic publications describing the methodology and the main results of the study
-- A flexible and scalable methodology for estimating the excess burden of covid-19 bereavement. The code to produce the estimates will be made freely available on the code-sharing platform [Github](Github.com).
+- A flexible and scalable methodology for estimating the excess burden of covid-19 bereavement. The open-source code to produce the estimates will be made freely available on the code-sharing platform [Github](www.github.com).
 - The first set of estimates of how the Covid-19 disease will affect the expossure to mortality at a population-level
+- A set of academic publications describing the methodology and the main results of the project
 - A online platform for scientists and policy makers to access and download the data easily (see [this interactive app](https://research-app.shinyapps.io/child_death_paa/))
 
-## Work plan
+<!-- DIAGRAMA DE PARENTEZCO, DONDE EL EFECTO DE MORTALITYDAD ES LA FLECHA Y EL NODO EL NUMERO ESPERADO DE FAMILIARES -->
 
 
 ## References
