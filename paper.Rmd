@@ -1,6 +1,6 @@
 ---
 title: 'Child survival for mothers: mortality change and related measures'
-author: "Ivan Williams and Diego Alburez-Gutierrez"
+author: "Iván Williams and Diego Alburez-Gutierrez"
 date: "May 2020"
 output:
   html_document:
@@ -10,8 +10,8 @@ bibliography: bib.bibtex
 
 <!--
 Comentarios:
-- Puede sonar que la instroducción es un poco larga para el resto del cuerpo. Lo dejo a tu criterio porque me cuesta sacar algo de allí, aprece todo bastante relevante.
 - hay dos comentarios más abajo: uno sobre algo que agregaría a la introducción y otra cosa sobre una idea interesante que podríamos agregar como mini corolario (line 217 aprox).
+- Puede sonar que la instroducción es un poco larga para el resto del cuerpo. Lo dejo a tu criterio porque me cuesta sacar algo de allí, aprece todo bastante relevante.
 - Perdón por mi spanglish.
 - Los gráficos aún requieren trabajo. Quizás sea algo que podamos mejorar post-vista de Emilio.
 - Traté de dejar expuesto que la parte de heterogeneidad es solo el planteo.
@@ -175,10 +175,12 @@ L_{Y_0}[1-H_x]L_{Y_1}[-H_x]L_{Y_2}\,dY_0\,dY_1\,dY_2$$
 ...
 
 *What can we look for here?*:
+
 * _a formalization of covariance_
 
 * _estimate joint distribution using historical data. Idea: ¿maybe taking all the period/country observations as realized values of an hypothetical stable population, and using bayesian procedures?_
 
+...
 
 ## Applications {#Applications}
 ### Data {#Data}
@@ -194,7 +196,7 @@ ggplot(LA %>% filter(x==0, name!="Latin America and the Caribbean"),
                   aes(x=qx, y=tfr))+
                   geom_point(aes(color=Year)) +
                   geom_smooth(se = F, color = "grey", method = "lm",
-                              formula = y ~ log(x)) +
+                              formula = y ~ log(x), linetype = "dashed") +
                   geom_line(data = LA %>% filter(x==0, name=="Latin America and the Caribbean"),
                             aes(x=qx, y=tfr, color=Year), size=1)+
                   theme_classic() + labs(x="q(0)", y="GRR") + 
@@ -282,7 +284,7 @@ ch_abs <-  CS_change_app %>%
              geom_abline(slope=1, intercept = 0) +
              scale_x_continuous("Empirical change in CS") +
              scale_y_continuous("Approximated change in CS") +
-             scale_color_continuous("Absolute change\nin delta") +
+             scale_color_continuous("Delta") +
              theme_classic()
 
 ch_rel <-  CS_change_app %>%
@@ -291,7 +293,7 @@ ch_rel <-  CS_change_app %>%
              geom_abline(slope=1, intercept = 0) +
              scale_x_continuous("Empirical change in CS") +
              scale_y_continuous("Approximated change in CS") +
-             scale_color_continuous("Relative change\nin delta") +
+             scale_color_continuous("Delta") +
              theme_classic()
 
 grid.arrange(ch_abs, ch_rel, ncol=2)
