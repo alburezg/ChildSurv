@@ -1,0 +1,103 @@
+---
+title: 'Estimating excess bereavement due to Covid-19'
+subtitle: 'Proof of concept for Volkswagen "Corona Crisis and Beyond – Perspectives for Science, Scholarship and Society" grant'
+author: "Diego Alburez-Gutierrez, Ivan Williams, and Emilio Zagheni (?)"
+date: "15 May 2019"
+output:
+  pdf_document:
+    fig_caption: yes
+header-includes: \usepackage{todonotes}
+bibliography: bib.bibtex
+urlcolor: blue
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(collapse = TRUE,
+                      message=F, warning=F, echo = F)
+```
+
+## In a nutshell
+
+Much attention has been given to Covid-19 excess mortality rates, but little is known about how the pandemic will increase the exposure to the death of relatives for people around the world.
+This project seeks to estimate the global burden of bereavement associated with the Covid-19 disease.
+It is the first attempt to quantify this phenomenon and its wide-ranging implications for society using a set of innovate methods from mathematical demography and demographic micro-simulation.
+
+**Keywords** demography, bereavement, family support, excess mortality
+
+## Project description
+
+This project will combine existing and future data on Covid-19 excess mortality with powerful methods from formal demography to estimate the global burden of Covid-19 bereavement.
+The project is not interested in the total number of people who will die with Covid-19, but in the number of people who will be affected by the death of a relative because of the disease, a phenomenon we call `excess bereavement'.
+
+### Objectives
+
+1. Operationalize a set of equations from mathematical demography to estimate levels of Covid-19 bereavement
+1. Quantify the number of people expected to lose a relative to Covid-19 in the nuclear and in the extended family in countries around the world
+1. Determine which demographic groups will be at a higher risk of losing a relative to Covid-19 and how this will vary by type of relative
+1. Quantify the degree to which Covid-19 will affect the availability of family resources for grieving relatives over the life-course
+
+   <!-- 1. How many people will lose a relative to Covid-19, either in the nuclear or in the extended family?  -->
+   <!-- 1. Which demographic groups will be at a higher risk of losing a relative to Covid-19 and how will this vary by type of relative lost? -->
+   <!-- 1. How will excess bereavement affect the availability of family resources for those that survive the disease? -->
+
+
+### Expected main results
+
+As a first step, we seek to generalize the Kin-Cohort Method [@alburez_gutierrez_womens_2019], itself an extension of the Goodman, Keyfitz Pullum Kinship equations [@goodman1974], to estimate the potential increase in the exposure to the death of relatives given a set of age-specific Covid-19 mortality rates. 
+We will focus on deriving mathematical expressions to model the effect of changes in mortality on the population-level prevalence of excess bereavement.
+
+
+As a second step, we will estimate the excess burden of kin death from the Covid-19 disease using our novel mathematical models with demographic micro-simulations [@zagheni_impact_2011].
+Combining this with data on the age and sex structure of the population will allow us to estimate the magnitude of the excess bereavement and the age distribution of the bereaved population\footnote{`Excess' bereavement can be compared to a baseline counter-factual scenario using rates that exclude the excess mortality from Covid-19.}.
+
+
+Our models will be calibrated using data from Germany and Italy, for which quality data on Covid-19 death rates is already available.
+We will then extend our innovative methodology to other parts of the world once reliable data on Covid-19 excess mortality becomes available. 
+Demographic micro-simulation will be used to obtain estimates for countries without high-quality data.
+The project will produce a range of estimates to reflect the uncertainty inherent to the Covid-19 mortality statistics that are required as input. 
+However, we expect the accuracy of our models to improve as more data quality becomes available.
+
+
+The expected results are:
+
+1. A flexible and scalable methodology for estimating the excess burden of Covid-19 bereavement. The open-source code to produce the estimates will be freely available on the code-sharing platform [Github](www.github.com).
+1. Country-level estimates of how the Covid-19 disease will affect the exposure to mortality at a population-level
+1. A set of academic publications in high-impact journals describing the methodology and the main results of the project
+1. A online platform for scientists and policy makers to access and download the data easily (see [this interactive app](https://research-app.shinyapps.io/child_death_paa/) from one of the authors)
+
+### Relevance of the topic for society
+
+Death and bereavement have come to the forefront of public debate as the world grapples with the global pandemic of the Covid-19 disease.
+The pandemic has already brought about the death of thousands of mainly elderly people. 
+Each death is meaningful in itself, but it also represents the loss of somebody's parent, grandparent, great-grandparent, aunt, uncle, cousin, or child.
+Studies in sociology and public health have consistently shown the negative and long-term consequences of bereavement on mental, physical, and emotional health, especially for women [@umberson_death_2017].
+Bereavement also matters because relatives are crucial providers of social and financial support, the loss of which affects the individuals left behind [@Hendrickson2009].
+However, there are currently no estimates of the number of people who will lose a relative to the Covid-19 disease.
+
+
+Information on the expected number of bereaved relatives can help policy makers develop appropriate plans for supporting the grieving relatives. 
+Data on the age of the grieving relatives is key for targeting this programs more effectively - a different approach may be needed for dealing with young orphans that for supporting elderly parents who lose a middle-aged child.
+The effects of bereavement are also bound to vary by levels of socio-economic development
+For many people living in the Global North this will be their first close encounter with death, as historically low mortality rates have implied a reduction in the exposure to mortality at all ages in high-income countries [@murphy_long-term_2011; @alburez_gutierrez_womens_2019].
+For people in the Global South, it will add to an already high burden of bereavement [@smith-greenaway_maternal_2020; @roberton_early_2020].
+
+### Relevance of the topic for science
+
+Our project will operationalize, for the first time, a set of demographic equations that can be used to estimate the expected number of surviving kin and the number of kin expected to die in the context of dramatic changes in demographic rates.
+We show how complex estimations, previously thought unfeasible [@KeyfitzMath], are now possible given the rapid advances in computational power and parallel processing.
+Our interdisciplinary approach, combining demographic theory and data science, has the potential to make methodological and substantial contirbutions to our understanding of branching processes which have a wide application in other fields. 
+
+
+Substantially, kin count estimation has a long pedigree in mathematical demography, starting with the work of @lotka1931orphanhood on modelling orphanhood in theoretical populations across demographic regimes.
+The question of kin survival sits at the very center of demographic theory used for studying human and non-human populations. 
+Historical demographers draw liberally on assumptions about kin availability and individual's exposure to the death of relatives to explain human behavior, especially in the context of rapid societal change such as epidemics, but these assumptions are often untested given the data sparsity [@livi_bacci_concise_1997;@volk_infant_2013]. 
+This project will produce reliable quantitative estimates about the exposure to mortality in the context of a current pandemic.
+The same approach can well be applied to understand the prevalence of bereavement in past and future global mortality crises.
+
+
+## Details on collaboration
+
+
+
+## References
+
