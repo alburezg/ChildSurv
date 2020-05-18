@@ -1,5 +1,5 @@
 ---
-title: 'Estimating excess bereavement due to Covid-19'
+title: 'Estimating excess bereavement due to Covid-19 around the world'
 subtitle: 'Proof of concept for Volkswagen "Corona Crisis and Beyond – Perspectives for Science, Scholarship and Society" grant'
 author: "Diego Alburez-Gutierrez, Ivan Williams, and Emilio Zagheni (?)"
 date: "15 May 2019"
