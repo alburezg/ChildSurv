@@ -1,7 +1,7 @@
 ---
 title: 'Child survival for mothers: mortality change and related measures'
 author: "Iván Williams and Diego Alburez-Gutierrez"
-date: "May 2020"
+date: "07 July 2020"
 output:
   html_document:
     fig_caption: yes
@@ -29,30 +29,41 @@ load("R/CS_outs.RData")
 
 ## Introduction
 
-The question of child survival, particularly the survival of daughters for mothers, sits at the very center of demographic theory.
-This is evidenced by the omnipresence of the 'net reproductive rate' in accounts of human and non-human populations. 
-Historical demographers draw liberally on assumptions about kin availability and individual's exposure to offspring mortality to explain fertility decisions, especially around the demographic transition. 
-These assumptions are often untested given the data sparsity [@livi_bacci_concise_1997;@volk_infant_2013]. 
-Economic theories of fertility that consider children as 'investment' for old-age support also rely on notions of child survival [@preston1978effects].
-
-Kin count estimation has a long and distinguished pedigree in mathematical demography, starting with the work of @lotka1931orphanhood on modelling orphanhood in theoretical populations across demographic regimes. To the best of our knowledge, @brass_derivation_1953 first proposed a formula to represent child survival over age. The notion of estimating the expected number of living daughters in a stable population was generalized by @goodman1974 for other kin relations (granddaughters, cousins, etc.). The "counting method" approach was further popularized in @KeyfitzMath. @bongaarts_projection_1987 used a similar approach to estimate descendants in his 'Family Status Model'.
-
-Child survival - and it's counterpart, child death - gain new significance in the wake of the fertility transition.
-Depressed fertility means that fewer children are tasked with providing key emotional, social, and financial transfers to aging parents for ever increasing periods of time.
+The question of child survival for mothers sits at the very center of demographic theory.
+<!-- This is evidenced by the omnipresence of the 'net reproductive rate' in accounts of human and non-human populations. -->
+<!-- Historical demographers draw liberally on assumptions about kin availability and individual's exposure to offspring mortality to explain fertility decisions, especially around the demographic transition [@gortfelder_survival_2020].  -->
+<!-- These assumptions are often untested given the data sparsity [@livi_bacci_concise_1997;@volk_infant_2013].  -->
+<!-- Economic theories of fertility that consider children as 'investment' for old-age support also rely on notions of child survival [@preston1978effects]. -->
+Offspring survival is usually studied alongside fertility decline in the context of the demographic transition [@gortfelder_survival_2020], but it also matters for post-transitional societies. 
+Lower fertility and higer life expectancy means that fewer children are expected to provide key emotional, social, and financial transfers to aging parents for longer periods of time.
 With increasing periods of generational overlap, individuals find themselves 'sandwiched' between aging parents and young children requiring their simultaneous attention and care [@daatland_norwegian_2010].
-In the context of global population aging, elderly parents without access to formal social security and pension systems are particularly reliant on these transfers to make ends meet [@smith-greenaway_maternal_2020].  
-Losing an only child may become a more common experience in the context of global fertility decline, something particularly worrying for parents suddenly rendered childless.
+<!-- Losing an only child at old age is expected to become a more common experience in the future [@alburez_gutierrez_womens_2019]. -->
+In the context of global population aging, elderly parents without access to formal social security and pension systems are particularly reliant on these transfers [@smith-greenaway_maternal_2020].
 Given the known psychological, health, and social consequences of child loss for bereaved parents and families [@Hendrickson2009;@lee_death_2014], it is surprising that the demographic processes that shape parental bereavement remain very poorly understood.
-Recent development have underscored the need to understand how sudden changes in mortality affect the availability of kin. 
-In the context of the global pandemic caused by the Covid-19 disease, elderly people depend on support provided by their relatives, especially during periods of lockdown and in the absence of governmental support mechanisms.
-<!-- Maybe here are repeated --> Elderly parents may be at a higher risk of losing the key support provided by their adult children given the known age-gradient in the Covid-19 case fatality rate. 
+
+
+The Covid-19 pandemic has underscored the need to understand how sudden changes in mortality affect the availability of kin. 
+The elderly depend on kin support, especially during periods of lockdown and in the absence of governmental support mechanisms.
+Elderly mothers may be at a higher risk of losing the key support provided by their adult children given the known age-gradient in the Covid-19 case fatality rate.
 How do changes in mortality affect the availability of offspring over age from the point of view of a prospective mother? 
-How can we characterize the timing of offspring mortality as experienced by a mother from a formal demographic perspective? 
-How this would work in an heterogeneity population?
+<!-- How can we characterize the timing of offspring mortality from a mother's perspective in a formal demographic framework?  -->
+How do these processes play out in a heterogeneous population?
 
 
-In this paper we aim to formalize the relationship population-level changes in mortality rates and perceived change in the lived experience of child death from the perspective of a mother. Our approach is key for understanding the impact of age-specific excess mortality on the resilience or otherwise of kinship networks for the vulnerable elderly population.
-We consider the case when these changes are additive and mutliplicative. In this paper, we uncover formal relationships to answer these questions and provide numerical applications using data from countries in Latin America during the second half of the twentieth century. See the [Applications](#Applications) section for more details on the source, calculation procedures and main numerical results. We used period measures, in an stable context, so the objetive is give moment measures. A more sophisticated model using the appropriate age-specific cohort rates in the subscripts has been proposed by @alburez_gutierrez_womens_2019.
+
+In this paper, we aim to formalize the relationship between population-level changes in mortality rates (additive or multiplicative) and changes in the lived experience of kin death.
+<!-- Ivan: si decimos esto, quiza deberia ser el enfoque principale del paper tener age-specific changes?  -->
+This is key for understanding the impact of age-specific excess mortality on the resilience or otherwise of kinship networks for the vulnerable elderly population.
+This paper uncovers formal relationships and provides numerical applications using data from Latin America in the second half of the twentieth century using period measures in a stable context.^[See the [Applications](#Applications) section for more details on the source, calculation procedures and main numerical results.]
+<!-- A more sophisticated model using changing age-specific cohort rates in the subscripts has been proposed by @alburez_gutierrez_womens_2019. -->
+We continue a long tradition in mathematical demography, starting with the work of @lotka1931orphanhood on modelling orphanhood in theoretical populations, @brass_derivation_1953 on child survival, @goodman1974 on kin survival in stable populations, and recently, @caswell_formal_2019 kinship matrices.
+<!-- The 'counting method' approach was further popularized in @KeyfitzMath. @bongaarts_projection_1987 used a similar approach to estimate descendants in his 'Family Status Model'. -->
+
+
+<!-- starting with the work of @lotka1931orphanhood on modelling orphanhood in theoretical populations across demographic regimes.  -->
+<!-- To the best of our knowledge, @brass_derivation_1953 first proposed a formula to represent child survival over age.  -->
+<!-- The notion of estimating the expected number of living daughters in a stable population was generalized by @goodman1974 for other kin relations (granddaughters, cousins, etc.).  -->
+<!-- The 'counting method' approach was further popularized in @KeyfitzMath. @bongaarts_projection_1987 used a similar approach to estimate descendants in his 'Family Status Model'. -->
 
 <!-- In some place (maybe here) I would say something like this: "
 These work can be read like an humble extension of the kin expressions developed by formal demograperhs mentioned before, motivated by the study of beaverement experience in mothers.
@@ -69,7 +80,7 @@ $$CS_a = \int_{0}^a{m_{x}l_{a-x}dx}$$
 
 ### An approximation
 
-As an initial step, we seek an intuitive understanding of the effect of changing mortality on child survival. 
+As an initial step, we provide an intuitive understanding of the effect of changing mortality on child survival. 
 Building on work by @KeyfitzMath for the probability of a living mother, we can show which features of the child survival function explain the expected number of children. 
 For this we use an approximate of $l_x$ using Taylor´s theorem until second order around the mean age of childbearing $\kappa$:
 
@@ -78,29 +89,34 @@ $$CS_a \approx l_{a-\kappa} \int_{0}^a{m_{x}dx}+(l_{a-\kappa})^{'}\int_{0}^a{(x-
   \approx F_a l_{a-\kappa} + \frac{\sigma^2}{2}F_a (l_{a-\kappa})^{''}\\
   \approx F_a \, l_{a-\kappa}[1+\frac{\sigma^2}{2}\frac{(l_{a-\kappa})^{''}}{l_{a-\kappa}}]$$
 
-where the fertility pattern by age is concentrated around $\kappa$ and the accumulated fertility (or gross reproduction rate in our female-dominant scenario) is $F_a =  \int_{\alpha}^a{m_{x}dx}$. The second Taylor´s term is null because $\int_{\alpha}^a{x \, m_{x}dx} = \kappa \, F_a$. 
+where the fertility pattern by age is concentrated around $\kappa$ and the accumulated fertility (or gross reproduction rate in our one-sex population) is $F_a =  \int_{\alpha}^a{m_{x}dx}$. The second Taylor´s term is null because $\int_{\alpha}^a{x \, m_{x}dx} = \kappa \, F_a$. 
 
-We find that, seen from the perspective of a mother, child survival mainly depends on the cummulative fertility function^[Different from the findings of @KeyfitzMath of having living ancestors.] and the survival from birth to $a-\kappa$. Also that the approximation is affected (negativally) by how disperse is the fertility by age (variance $\sigma^2$) and the suvival curvature around (with negative sign), in an age range where $l_x$ is tipycally very flat (range 20-40 years old) in transitioned populations^[This approximation is useful also for get a dimension changes in the fertility average age \kappa: taking logs in $F_a \, l_{a-\kappa}$ and deriving we get $\frac{\Delta CS_a}{CS_a} \approx - \mu_{a-\kappa} \Delta\kappa$]. 
+We find that, seen from the perspective of a mother, child survival mainly depends on the cummulative fertility function^[Different from the findings of @KeyfitzMath of having living ancestors.] and the survival from birth to $a-\kappa$. 
+The approximation is affected (negativally) by the disperssion of fertility by age (variance $\sigma^2$).
+The same is true for the curvature of the survival surve, in an age range where $l_x$ is tipycally very flat (range 20-40 years old) in transitioned populations^[This approximation is useful also for get a dimension changes in the fertility average age \kappa: taking logs in $F_a \, l_{a-\kappa}$ and deriving we get $\frac{\Delta CS_a}{CS_a} \approx - \mu_{a-\kappa} \Delta\kappa$]. 
 
-### Mortality Changes
+### Absolute Mortality Change
 
-We now consider the consequences of an absolute change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk.
+We now consider the consequences of an absolute, or additive, change $\delta$ in mortality in the range $[0,a-\alpha]$, where $\alpha$ is the start age of fertility risk.
 For now, let us consider $m_{x,\delta}=m_{x}+\delta$ (@wrycza2012) and $l_{a-x}^\delta = e^{-\int_{0}^{a-x}{(\mu_t+\delta})dt}$:
 
-$$CS_{a}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx$$
+$$CS_{a}^\delta = \int_{\alpha}^{a}m_{x} l_{a-x} e^{-\delta (a-x)} dx.$$
 
-We get the derivative of $dCS_{(a)}^\delta / d\delta$ evaluated near zero (@KeyfitzMath) to find the effects of adding $\delta$ to hazard rates:
+We get the derivative of $dCS_{(a)}^\delta / d\delta$ evaluated near zero (@KeyfitzMath) to find the effects of adding $\delta$ to the hazard rates:
 
 $$\frac{dCS^{\delta}}{d\delta} = -a\int_{\alpha}^{a}m_{x}{l_{a-x} dx} + \int_{\alpha}^{a} m_{x} {l_{a-x}x dx}\\
 = -a \, CS_{a}  + \int_{\alpha}^{a} {x  \, m_{x} l_{a-x} dx}$$
 
-Dividing both sides by $CS_{a}$ in an discrete approximation we get:
+Dividing both sides by $CS_{a}$ we obtain a discrete approximation:
 
-$$\frac{\Delta CS_{a}}{CS_{a}} \approx -(a - k_a) \Delta\delta$$
+$$\frac{\Delta CS_{a}}{CS_{a}} \approx -(a - k_a) \Delta\delta.$$
 
 The expected change in descendants survival is inversely proportional to the difference between maternal age $a$ and the mean age of the mother at the birth of her surviving daughters $k_a$. The magnitude of the change depends negatively on the age distribution of the surviving offspring. This is intuitive considering that younger descendants experiences longer periods of exposure to risk. 
 
-That an equal change in mortality could happens at all ages is unlikelihood. This measure could be much related a change in first ages (child and youth) than adult or ones. As a corollary, if the change only happens in the age range $\left[0;1\right)$, infant mortality, we can inspect the effect starting with splitting the integral (considering those born last year and not, and of course for $a>1$):
+However, it is unlikely for mortality to change at the same rate at all ages. 
+In the course of the demographic transition, for example, we owuld expect larger changes in young-age mortality.
+As a corollary, we consider an additive change in infant mortality in the age range $\left[0;1\right)$. 
+For this, we split the integral to considering those born in the previous year for $a>1$:
 
 $$CS_{a}^{\delta_0} = \int_{0}^{a-1} m_{x} {e{^{-\int_{1}^{a-x}\mu_t \,dt-\int_{0}^{1}(\mu_t + \delta)\,dt}}} dx + \int_{a-1}^{a} m_{x} e^{-\int_{0}^{a-x}(\mu_t+ \delta)\,dt}dx\\
 =\int_{0}^{a-1} m_{x} l_{a-x}e^{-\delta} dx + \int_{a-1}^{a} m_{x} l_{a-x} e^{-\delta(a-x)}\,dx$$
@@ -108,14 +124,18 @@ $$CS_{a}^{\delta_0} = \int_{0}^{a-1} m_{x} {e{^{-\int_{1}^{a-x}\mu_t \,dt-\int_{
 Deriving by $\delta$ and valuating near 0, we get:
 
 $$CS_{a}^{\delta_0} =-\int_{0}^{a-1} m_{x} l_{a-x} dx - a \int_{a-1}^{a} {m_{x} l_{a-x} dx} + \int_{a-1}^{a} {x \, m_{x} l_{a-x} dx}$$
-If we name $CS_{a-1,a}=\int_{a-1}^{a} {m_{x} l_{a-x} dx}$, we can express the first term in the right as $CS_a - CS_{a-1,a}$, and finally divide by $CS_a$: 
+Since $CS_{a-1,a}=\int_{a-1}^{a} {m_{x} l_{a-x} dx}$, we can express the first term in the right as $CS_a - CS_{a-1,a}$, and finally divide by $CS_a$: 
 $$ = - CS_a + CS_{a-1,a} (1-a+\kappa_{a-1,a})\\
 \frac{\Delta CS_{a}}{CS_{a}} \approx - \left[1-\frac{CS_{a-1,a}}{CS_a} (1-(a-\kappa_{a-1,a}))\right] \Delta\delta$$
 
-This means that an absolute change in infant hazard rate affects proportionally for all the age range extension (because of all the cohorts aged more than 1), except for the mean time exposure for those who born and survive in the last year $1-(a-k_{a-1,a})$, times $\frac{CS_{a-1,a}}{CS_a}$ the portion of cummulative alive daughters for the same period, weighting how important was this in total successful experience (in terms of alive descendants).
+
+<!-- Este parrafo necesita mas claridad -->
+An absolute change in infant hazard rate affects proportionally for all the age range extension (because of all the cohorts aged more than 1), except for the mean time exposure for those who born and survive in the last year $1-(a-k_{a-1,a})$, times $\frac{CS_{a-1,a}}{CS_a}$ the portion of cummulative alive daughters for the same period, weighting how important was this in total successful experience (in terms of alive descendants).
+
+### Proportional Mortality Change
 
 We now consider the consequences of a proportional change in mortality on child survival.
-Given a proportional change in mortality $\mu_{x,\delta}=\mu_{x}(1+\delta)$ so that $l_{a-x}^\delta = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=(l_{a-x})^{(1+\delta)}$, it follows that:
+Given a proportional change in mortality $\mu_{x,\delta}=\mu_{x}(1+\delta)$ so that $l_{a-x}^\delta = e^{-\int_{0}^{a-x}{\mu_t(1+\delta})dt}=(l_{a-x})^{(1+\delta)}$:
 
 $$CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx.$$
 
@@ -125,12 +145,15 @@ $$\frac{d CS_{a}^\delta}{d \delta} = \int_{0}^{a} {m_{x} l_{a-x} \log(l_{a-x}) d
 = - \int_{0}^{a} {m_{x} l_{a-x} \int_{0}^{a-x}{\mu_t \, dt}\, dx}\\
 = - \int_{0}^{a}{\mu_t} \int_{0}^{a-t} {m_{x} l_{a-t-x} \, dx}\, dt$$
 
-The last integral is $CS_{a-t}$. Dividing by $CS_a$ and multiplying by $\delta$ get one useful expression. This is the negative of cumulative hazard $H_a$ but considering a positive factor $\frac{CS_{a-t}}{CS_a}$ that takes in account the relative amount of surviving descendants that would be lost at each child age at risk. 
+Considering that the last integral is equal to $CS_{a-t}$, we divide by $CS_a$ and multiplying by $\delta$ we obtain:  
 
 $$\frac{\Delta CS_{a}}{CS_a} \approx - \left[\int_{0}^{a}{\mu_x  \, \frac{CS_{a-x}}{CS_a} \,dx \,}\right] \Delta \delta$$
 
+<!-- This needs more clarity -->
+This is the negative of cumulative hazard $H_a$ but considering a positive factor $\frac{CS_{a-t}}{CS_a}$ that takes in account the relative number of surviving descendants that would be lost at each child age at risk. 
 Grasping this relationship intuitively is more difficult given the interaction of birth and mortality rates (@KeyfitzMath). 
-This factor has a S-shape because $l_x$ curvature and fertility accumulation, that gives more weight to first ages, generally less than 1 except for mother ages close to age valuation *a* with complete reproductive life and high infant mortality (no additional children and high risk for one age additional of survive), typically pretransitional countries with a near 50. A numerical evaluation of both analytical expressions (absolute an relative) are done in [Applications](#Applications) section.   
+This factor has a S-shape because $l_x$ curvature and fertility accumulation, that gives more weight to first ages, generally less than 1 except for mother ages close to age valuation *a* with complete reproductive life and high infant mortality (no additional children and high risk for one age additional of survive), typically pretransitional countries with a near 50. 
+We provide a numerical evaluation of both analytical expressions (absolute an relative) in the [Applications](#Applications) section.   
 
 ## Related Measures
 
@@ -190,7 +213,7 @@ L_{Y_0}[1-H_x]L_{Y_1}[-H_x]L_{Y_2}\,dY_0\,dY_1\,dY_2$$
 ## Applications {#Applications}
 ### Data {#Data}
 
-We motivate this paper with an empirical example using fertility and mortality rates from the 2019 Revision of the UN World Population Prospects (UN WPP) for the Latin American Region (@WPP19). We smoothed female $l_x$ in quinquennial ages, using cubic-splines constrained to monotonic decrease, taking $L_0$ and $T_{100}$ from raw life tables as inputs for year-person calculations. For splitting fertility five groups was used quadratic optimization approach by @Michalski2018, with an desirable property for our purpose which is a good fitting in parity. Also was assumed an unique female percentage of newborns of `r round(im, 4)` for all period-country cases. Calculations were done in a discrete way assuming that the $m_x$ live births are born at exact mother´s age *x*.
+We provide empirical estimates using fertility and mortality rates from the 2019 Revision of the UN World Population Prospects (UN WPP) for the Latin American Region (@WPP19). We smoothed female $l_x$ in quinquennial ages, using cubic-splines constrained to monotonic decrease, taking $L_0$ and $T_{100}$ from raw life tables as inputs for year-person calculations. For splitting fertility five groups was used quadratic optimization approach by @Michalski2018, with an desirable property for our purpose which is a good fitting in parity. Also was assumed an unique female percentage of newborns of `r round(im, 4)` for all period-country cases. Calculations were done in a discrete way assuming that the $m_x$ live births are born at exact mother´s age *x*.
 An already known log relation between infant mortality and TFR is shown in Latinoamerican experience (\@ref(fig:plot_tfr_q0)). 
 
 <!-- Specific paths like Argentina and Guatemala shows very different demographic profiles during second part of XX century. -->
@@ -310,7 +333,7 @@ grid.arrange(ch_abs, ch_rel, ncol=2)
 Assuming constant period rates the expected time in years that a mother aged 30 passed with a death son was around 4% in some countries at middle XX Century. When increasing age, the survival experience depends less on infant mortality, and the distribution is around less than 2% for women aged 50, converging to 0 on time. As extreme cases, in 1950-1955 Haiti women aged 30 would have experienced an intensity of `r round(CS_outs$ITL[CS_outs$name=="Haiti" & CS_outs$Age==30 & CS_outs$Period=="1950-1955"],1)`%, and in 2010-2015 `r round(CS_outs$ITL[CS_outs$name=="Haiti" &CS_outs$Age==30 & CS_outs$Period=="2010-2015"],1)`%, while the women of Costa Rica `r round(CS_outs$ITL[CS_outs$name=="Costa Rica" & CS_outs$Age==30 & CS_outs$Period=="1950-1955"],1)`%, and in 2010-2015 `r round(CS_outs$ITL[CS_outs$name=="Costa Rica" &CS_outs$Age==30 & CS_outs$Period=="2010-2015"],1)`%.
 For those Latin American mothers aged 50 with 3 daughters born who suffered a lost, they experienced that at age 30 in average (figure \@ref(fig:plot_ITL_MAL)).
 
-```{r plot_ITL_MAL, fig.cap = "a) Intensity Tome Lost of  women aged 30, 40 and 50. b) Mean age at Lost for women aged 40. Years 1950 (darker) to 2015 (lighter). Latinamerican countries in period 1950-2015"}
+```{r plot_ITL_MAL, fig.cap = "a) Intensity Time Lost of  women aged 30, 40 and 50. b) Mean age at Lost for women aged 40. Years 1950 (darker) to 2015 (lighter). Latinamerican countries in period 1950-2015"}
 ITL <- ggplot(CS_outs %>% filter(name!="Latin America and the Caribbean"), 
           aes(x=Fa, y=ITL, color=factor(Age)), alpha = .3) + # alpha not working
           geom_point() +
