@@ -129,6 +129,9 @@ Given a proportional change in mortality $\mu_{x,\delta}=\mu_{x}(1+\delta)$ so t
 
 $$CS_{a}^\delta = \int_{\alpha}^{a} {m_{x} l_{a-x}^{(1+\delta)}} dx.$$
 
+
+
+
 Using the derivative $\frac{dl_{a-x}^{(1+\delta)}}{d\delta} = log(l_{a-x}) l_{a-x}^{(1+\delta)}$, and in the third row reversing integrals between $t$ and $x$:
 
 $$
@@ -145,6 +148,25 @@ $$\frac{\Delta CS_{a}}{CS_a} \approx - \left[\int_{0}^{a}{\mu_x  \, \frac{CS_{a-
 
 Grasping this relationship intuitively is more difficult given the interaction of birth and mortality rates (@KeyfitzMath). 
 The factor $\frac{CS_{a-t}}{CS_a}$  has a S-shape because $l_x$ curvature and fertility accumulation. Taking the difference between consecutive ages $a$ and $a+1$, we have $CS_{a-1}=\int_{0}^{a-1} {m_{x} l_{a-1} \, dx}$, $CS_{a}=\int_{0}^{a-1} {m_{x} l_{a} \, dx}+CS_{a-1,a}$. In the last one, a second term is added because of additional born daughters after $a-1$, and in the first term the existing one are survived at on $\frac{l_{a-x}}{l_{a-1-x}}$. In advanced ages when fertility is complete, the difference is only explained by the surviving part, that is why this factor is not a strictly increasing function but for mother ages close to $\beta$ (last theoretical fecundity age). A numerical evaluation of both analytical expressions (absolute an relative) and its factor $\frac{CS_{a-t}}{CS_a}$ are done in [Applications](#Applications) section.   
+
+
+$$
+
+CS_{a}^{\delta_0} = \int_{0}^{a} m_{x} {e{^{-\int_{1}^{a-x}\mu_t \,dt-\int_{0}^{1}\mu_t\,(1+\delta)\,dt}}} dx \\
+
+CS_{a}^{\delta_0} = \int_{0}^{a} m_{x} {e{^{-\int_{0}^{a-x}\mu_t \,dt - \delta \int_{0}^{1}\mu_t\,dt}}} dx\\
+
+CS_{a}^{\delta_0} = \int_{0}^{a} m_{x} {e{^{-\int_{0}^{a-x}\mu_t \,dt - \delta H_{0,1}}}} dx\\
+
+CS_{a}^{\delta_0} = \int_{0}^{a} m_{x} {e^{-\int_{0}^{a-x}\mu_t \,dt} e^{- \delta H_{0,1}}} dx\\
+
+CS_{a}^{\delta_0} = e^{- \delta H_{0,1}} CS_{a}\\
+
+CS_{a}^{\delta_0} = l_1^\delta CS_{a}
+
+
+
+$$
 
 ## Related Measures
 
@@ -173,6 +195,9 @@ $$
 
 Following this, in populations with high infant mortality $MAD_{a-x}<1$ for all *x*, so $MAL_a\approx\kappa_a+f_0$, being $f_0$ the average time spent for those child that dies in their first year of life. A numerical approximation of both measures are done in [Applications](#Applications) section.  
 
+
+
+
 ### Heterogeneity (first ideas)
 
 <!--quiero ver la correlacion entre fecundidad y mortalidad infantil. 
@@ -181,6 +206,7 @@ la proporción de hijas muertas es la proporción de hermanas muertas-->
 In a model with heterogeneity, determined at birth by a multiplicative effect, $CS_a$ could be interpreted as a conditional expectation with random variables *K* for fertility heterogeneity and *Z* for mortality frailty.
 
 $$CS_a(k,z) = \int_{0}^{\infty}\,{m(k)}_x\,{l(z)}_{a-x}\,dx$$
+
 
 Following @Coresh1988 we can express the fertility part in a multiplicative way with variability in the level but not in the shape, as ${m(k)}_x = F_\beta\,k\,r_x$, where $F_\beta$ is the baseline cumulated fertility until upper limit in all age range until $\beta$, $k$ is a random variable with mean 1 that allows variability between groups and $r_x$ is the fertility structure by age ($\int_{0}^{\beta}{r_x}=1$). 
 In the other side, frailty part can be thought in a cohort effect way, also in the multiplicative assumption as @Vaupel2014, with $l(z)_x=e^{-H_{x}z}=l_x^z$, with baseline hazard $\mu$.
@@ -204,6 +230,8 @@ $$
 L_{Y_0}[1-H_x]L_{Y_1}[-H_x]L_{Y_2}\,dY_0\,dY_1\,dY_2
 \end{aligned}
 $$
+
+
 
 To continue...
 
