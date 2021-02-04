@@ -1,4 +1,5 @@
-# function and results for paper "Child survival for mothers: mortality change and related measures"
+# function and graphs for paper "Mortality change and its impact on child survival"
+# I. Williams & Diego Alburez
 
 # libraries
 library(wpp2019)
@@ -78,6 +79,10 @@ CS_results <- function(LA, country, period, a){   # LA is the data base
   return(data.frame(CS,Fa,CS_prob,k,CS_aprox,error_aprox,MTSL,ITL,MAL))
 }
 
+CS_fun = function(Age, mx, lx){
+  sum(unlist(sapply(1:Age, function(j)
+    mx[j] * lx[Age+2-j]/100000)),na.rm = T)
+}
 
 # get data from WPP and smooth -----------------------------------------------------
 
@@ -178,7 +183,7 @@ for(i in 1:nrow(CS_outs)){
         }
 
 
-# get Changes ---------------------------------------------------------
+# get Ch Ch Ch Changes ---------------------------------------------------------
 # biiiig loop, could be optimized with map/purr
 # delta changes
 deltas <- c(.00001, .0001, 0.001, .01)
@@ -187,10 +192,7 @@ CS_change_app <- as.data.frame(expand.grid(
                                 Age = c(20,30,40,50,60),
                                 Period = unique(LA$Period),
                                 delta = deltas))
-CS_fun = function(Age, mx, lx){
-  sum(unlist(sapply(1:Age, function(j)
-    mx[j] * lx[Age+2-j]/100000)),na.rm = T)
-}
+
 for(i in 1:nrow(CS_change_app)){
         # loop
         # i = 1
