@@ -10,12 +10,12 @@ source("QOSplit.R")
 
 # main functions ----------------------------------------------------------
 
-# age survivor split spline
+### age survivor split spline
 lx_fun <- function(data, age){
   splinefun(data$x, data$lx, method = "monoH.FC")(age)
 }
 
-# function to calculate all the measures
+### function to calculate all the measures
 CS_results <- function(LA, country, period, a){   # LA is the data base
   
   # example
@@ -40,6 +40,8 @@ CS_results <- function(LA, country, period, a){   # LA is the data base
   k = sum(country$asfr[1:a]*0:(a-1), na.rm = T)/Fa # should be noted as kappa but...
   CS_aprox = Fa * country$lx[a+1-k]/100000
   error_aprox = (CS-CS_aprox)/CS*100 # relative error approx
+  
+  # Shared-Lifetime Lost (called Mean Time Spent in Loss before)
   MTSL = 0
   for(i in 1:a){
     for(j in 1:(a+1-i)){
@@ -48,6 +50,7 @@ CS_results <- function(LA, country, period, a){   # LA is the data base
                  na.rm=T)
     }
   }
+  # Mean Time Spent with daughters alive
   MTSA = 0
   for(i in 1:a){
     for(j in 1:(a+1-i)){
@@ -56,6 +59,7 @@ CS_results <- function(LA, country, period, a){   # LA is the data base
                  na.rm=T)
     }
   }
+  # Intensity time lost
   ITL = MTSL/MTSA * 100
   m_MAD = 0
   for(i in 1:a){
@@ -65,6 +69,7 @@ CS_results <- function(LA, country, period, a){   # LA is the data base
                   na.rm=T)
     }
   }
+  # Mean age at lost
   MAL = k + m_MAD/Fa
   k_CS = sum(unlist(sapply(1:a, function(i) country$asfr[i]*country$lx[a+2-i]/100000*(i-1))), na.rm = T)/CS
   abs_change = -(a-k_CS)
@@ -74,7 +79,7 @@ CS_results <- function(LA, country, period, a){   # LA is the data base
 }
 
 
-# get data and smooth -----------------------------------------------------
+# get data from WPP and smooth -----------------------------------------------------
 
 # Get wpp locations
 data(UNlocations)
@@ -100,7 +105,7 @@ asfr_paises_LA <- percentASFR %>% gather(Period, asfr, -name, -country_code, -ag
                   select(-age) %>% 
                   filter(country_code %in% paises_LA_seleccion)
 
-# lt data must be downloaded manually (maybe too heavy for CRAN)
+# lt data must be downloaded manually (maybe too heavy for CRAN package)
 lt_paises_LA <- readxl::read_xlsx("Data/WPP2019_MORT_F17_3_ABRIDGED_LIFE_TABLE_FEMALE.xlsx", 
                                   sheet = 1, range = "A17:T77381") %>% 
                   rename(country_code=5,
@@ -173,7 +178,7 @@ for(i in 1:nrow(CS_outs)){
         }
 
 
-# Ch Ch Ch Change ---------------------------------------------------------
+# get Changes ---------------------------------------------------------
 # biiiig loop, could be optimized with map/purr
 # delta changes
 deltas <- c(.00001, .0001, 0.001, .01)
@@ -240,6 +245,7 @@ for(i in 1:nrow(CS_change_app)){
         print(round(i/nrow(CS_change_app)*100,1))
 }
 
+# proper names
 CS_change_app <- CS_change_app %>% rename(change_obs_abs = 5,
                                           change_obs_rel = 6,
                                           change_app_abs = 7,
@@ -252,10 +258,17 @@ CS_change_app <- CS_change_app %>% rename(change_obs_abs = 5,
 
 
 # graphs ------------------------------------------------------------------
+library(latex2exp)
+
+# Reverse the order as follow
+CS_change_app$delta <- factor(CS_change_app$delta)
+# Or specify the factor levels in the order you want
+CS_change_app$delta <- factor(CS_change_app$delta, 
+                              levels = c("1e-05", "1e-04", "0.001", "0.01" ))
 
 # change abs empirical vs aproximation
-pdf("change_app.pdf")
-  CS_change_app %>% mutate(delta=as.character(delta)) %>% 
+pdf("R/change_app.pdf")
+  CS_change_app %>% #mutate(delta=as.character(delta)) %>% 
   ggplot() +
   geom_point(aes(x=change_obs_abs, y=change_app_abs, color=delta)) +
   geom_abline(slope=1, intercept = 0) +
@@ -263,19 +276,20 @@ pdf("change_app.pdf")
   scale_y_continuous("Approximated") +
   scale_color_discrete("Change") +
   theme_classic() +
-  theme(legend.position="bottom")+
+  theme(legend.position="bottom"
+        ,text = element_text(size=15))+
   facet_wrap(~Age)
 dev.off()
 
 #graph intensity
-pdf("itl.pdf")
+pdf("R/itl.pdf")
 ggplot(CS_outs %>% filter(name!="Latin America and the Caribbean",Age>20), 
               aes(x=Fa, y=ITL, color=factor(Age)), alpha = .3) + # alpha not working
   geom_point() +
   geom_line(data = CS_outs %>% filter(name=="Latin America and the Caribbean",Age>20), 
             aes(x=Fa, y=ITL, color=factor(Age)), size =1)+
   theme_classic() +
-  theme(legend.position = "right") +
+  theme(legend.position = "right",text = element_text(size=15)) +
   labs(y = "%")+
   scale_color_discrete(name = "Age")
 dev.off()
@@ -291,8 +305,8 @@ CS_app_30 <- ggplot(CS_outs %>% filter(Age == age, name!="Latin America and the 
             aes(x=CS, y=error_aprox), size=2) +
   geom_hline(yintercept = 0, color="grey", linetype = 2) +
   theme_classic() +
-  theme(legend.position = "none") +
-  labs(y = "%", x="CS30")+
+  theme(legend.position = "none",text = element_text(size=15)) +
+  labs(y = "%", x=TeX("CS_{30}"))+
   ylim(-2, 2)
 age = 40
 CS_app_40 <- ggplot(CS_outs %>% filter(Age == age, name!="Latin America and the Caribbean"), 
@@ -304,8 +318,8 @@ CS_app_40 <- ggplot(CS_outs %>% filter(Age == age, name!="Latin America and the 
             aes(x=CS, y=error_aprox), size=2) +
   geom_hline(yintercept = 0, color="grey", linetype = 2) +
   theme_classic() +
-  theme(legend.position = "none") +
-  labs(y = "%", x="CS40")+
+  theme(legend.position = "none",text = element_text(size=15)) +
+  labs(y = "%", x=TeX("CS_{40}"))+
   ylim(-2, 2)
 age = 50
 CS_app_50 <- ggplot(CS_outs %>% filter(Age == age, name!="Latin America and the Caribbean"), 
@@ -317,20 +331,20 @@ CS_app_50 <- ggplot(CS_outs %>% filter(Age == age, name!="Latin America and the 
             aes(x=CS, y=error_aprox), size=2) +
   geom_hline(yintercept = 0, color="grey", linetype = 2) +
   theme_classic() +
-  theme(legend.position = "none") +
-  labs(y = "%", x="CS50")+
+  theme(legend.position = "none",text = element_text(size=15)) +
+  labs(y = "%", x=TeX("CS_{50}"))+
   ylim(-2, 2)
 Guate_lt <- LA %>% filter(name=="Guatemala") %>% ggplot() +
   geom_line(aes(x=x, y=lx/100000, color=Period)) +
   theme_classic() +
   scale_color_grey()+
-  theme(legend.position = "none") +
+  theme(legend.position = "none",text = element_text(size=15)) +
   labs(y = "lx",x="Age")
 Guate_mx <- LA %>% filter(name=="Guatemala", between(x, 15,49)) %>% ggplot() +
   geom_line(aes(x=x, y=asfr/tfr*100, color=Period)) +
   theme_classic() +
   scale_color_grey()+
-  theme(legend.position = "none") +
+  theme(legend.position = "none",text = element_text(size=15)) +
   labs(y = "%",x="Age")
 pdf("R/CS_app.pdf")
 ggarrange(ggarrange(CS_app_30, CS_app_40, CS_app_50, ncol = 3, labels = c("A", "B", "C")),                                                 
@@ -339,12 +353,12 @@ ggarrange(ggarrange(CS_app_30, CS_app_40, CS_app_50, ncol = 3, labels = c("A", "
 dev.off()
 
 # mentions in text --------------------------------------------------------
-LA %>% filter(name=="Latin America and the Caribbean",
-              !is.na(mx),x<30,
-              Period=="1950-1955") %>% mutate(mx=round(as.double(mx),4)) %>% pull(mx) %>% 
-      paste(.,collapse=", ")
-CS_outs %>% filter(name=="Latin America and the Caribbean", Age==50) %>% 
-            select(Age, Period, CS, Fa, CS_prob, k)
+# LA %>% filter(name=="Latin America and the Caribbean",
+#               !is.na(mx),x<30,
+#               Period=="1950-1955") %>% mutate(mx=round(as.double(mx),4)) %>% pull(mx) %>% 
+#       paste(.,collapse=", ")
+# CS_outs %>% filter(name=="Latin America and the Caribbean", Age==50) %>% 
+#             select(Age, Period, CS, Fa, CS_prob, k)
 
 
 # end

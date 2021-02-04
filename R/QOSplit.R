@@ -7,7 +7,6 @@
 ## Splitting Fx (age-specific fertility rates) 
 ## using quadratic optimization (QO) method  (HFD data) ##
 
-
 ## Arguments of 'QOSplit' function ## 
 ## Fx - vector of aggregated ASFRs to be split into single ages ##
 ## L - vector of ages  (lower limits. e.g 10-15 is 10, 20-24 is 20, and so on) ##
